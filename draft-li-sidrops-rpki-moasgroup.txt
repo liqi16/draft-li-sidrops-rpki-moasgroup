@@ -268,15 +268,17 @@ END
        MUST match the IP prefix in the Signed MOAS Group, and the ASN in
        the ROA MUST appear in the AS list.
 
-   4.  A Signed MOAS Group has three possible validation outcomes:
+   4.  A Signed MOAS Group has three possible validation outcomes:  Vali
+          d: If the Signed MOAS Group is verified and at least one
+          corresponding ROA is found, the MOAS Group is considered
+          valid.
 
-   : Valid: If the Signed MOAS Group is verified and at least one
-   corresponding ROA is found, the MOAS Group is considered valid.  Susp
-      icious: If the Signed MOAS Group is verified but no corresponding
-      ROA is found, the MOAS Group is considered suspicious.
+          Suspicious: If the Signed MOAS Group is verified but no
+          corresponding ROA is found, the MOAS Group is considered
+          suspicious.
 
-      Invalid: If the Signed MOAS Group cannot be verified, it is
-      considered invalid.
+          Invalid: If the Signed MOAS Group cannot be verified, it is
+          considered invalid.
 
 6.  Operational Considerations
 
