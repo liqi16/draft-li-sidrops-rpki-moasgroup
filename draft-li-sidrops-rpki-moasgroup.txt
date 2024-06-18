@@ -177,15 +177,15 @@ FROM CryptographicMessageSyntax-2010 -- in [RFC6268]
 
 ct-rpkiSignedMoasGroup CONTENT-TYPE ::=
 { TYPE RpkiSignedMoasGroup
- IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
+  IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
 
- id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
+id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
 { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-pkcs-9(9) id-smime(16) id-ct(1) TBD }
+  pkcs-9(9) id-smime(16) id-ct(1) TBD }
 
 RpkiSignedMoasGroup ::= SEQUENCE {
-  version [0]     INTEGER DEFAULT 0,
-  prefix                                        AddressFamilyIPAddress }
+  version [0]   INTEGER DEFAULT 0,
+  prefix                AddressFamilyIPAddress,
   asList                SEQUENCE (SIZE(0..MAX)) OF ASID,
 }
 
