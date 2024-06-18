@@ -1147,13 +1147,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-aslist" class="internal xref">asList</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-prefix" class="internal xref">prefix</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-ipaddressprefix" class="internal xref">ipAddressPrefix</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.1">
                     <p id="section-toc.1-1.4.2.3.2.1.1"><a href="#section-4.3.1" class="auto internal xref">4.3.1</a>.  <a href="#name-addressfamily" class="internal xref">addressFamily</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.2">
-                    <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="auto internal xref">4.3.2</a>.  <a href="#name-prefix-2" class="internal xref">prefix</a></p>
+                    <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="auto internal xref">4.3.2</a>.  <a href="#name-prefix" class="internal xref">prefix</a></p>
 </li>
                 </ul>
 </li>
@@ -1269,8 +1269,8 @@ RpkiSignedMoasGroup ::= SEQUENCE {
 ASID ::= INTEGER (1..4294967295)
 
 AddressFamilyIPAddress ::= SEQUENCE {
-  addressFamily ADDRESS-FAMILY.&amp;afi ({AddressFamilySet}),
-  prefix        ADDRESS-FAMILY.&amp;Prefix ({AddressFamilySet}{@addressFamily}) }
+  addressFamily         ADDRESS-FAMILY.&amp;afi ({AddressFamilySet}),
+  ipAddressPrefix       ADDRESS-FAMILY.&amp;Prefix ({AddressFamilySet}{@addressFamily}) }
 
 ADDRESS-FAMILY ::= CLASS {
   &amp;afi          OCTET STRING (SIZE(2)) UNIQUE,
@@ -1310,10 +1310,10 @@ END
 <p id="section-4.2-1">This field contains the AS numbers that are authorized to originate routes to the given IP address prefixes. The AS numbers that ROA authorizes <span class="bcp14">SHOULD</span> be put in front of other AS numbers. The AS numbers <span class="bcp14">MUST NOT</span> duplicate.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="prefix">
+<div id="ipaddressprefix">
 <section id="section-4.3">
-        <h3 id="name-prefix">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-prefix" class="section-name selfRef">prefix</a>
+        <h3 id="name-ipaddressprefix">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-ipaddressprefix" class="section-name selfRef">ipAddressPrefix</a>
         </h3>
 <p id="section-4.3-1">This field contains an AddressFamilyIPAddress which contains one instance of addressFamily and one instance of prefix.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <div id="addressfamily">
@@ -1324,10 +1324,10 @@ END
 <p id="section-4.3.1-1">This field contains an OCTET STRING which is either '0001'H (IPv4) or '0002'H (IPv6).<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="prefix-1">
+<div id="prefix">
 <section id="section-4.3.2">
-          <h4 id="name-prefix-2">
-<a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-prefix-2" class="section-name selfRef">prefix</a>
+          <h4 id="name-prefix">
+<a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-prefix" class="section-name selfRef">prefix</a>
           </h4>
 <p id="section-4.3.2-1">This field contains a BIT STRING, its length bounded through the addressFamily field. The type is a BIT STRING, see Section 2.2.3.8 of <span>[<a href="#RFC3779" class="cite xref">RFC3779</a>]</span> for more information.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 </section>

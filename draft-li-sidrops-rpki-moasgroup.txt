@@ -84,7 +84,7 @@ Table of Contents
    4.  MoasGroup eContent
      4.1.  Version
      4.2.  asList
-     4.3.  prefix
+     4.3.  ipAddressPrefix
        4.3.1.  addressFamily
        4.3.2.  prefix
    5.  MoasGroup Validation
@@ -201,8 +201,8 @@ RpkiSignedMoasGroup ::= SEQUENCE {
 ASID ::= INTEGER (1..4294967295)
 
 AddressFamilyIPAddress ::= SEQUENCE {
-  addressFamily ADDRESS-FAMILY.&afi ({AddressFamilySet}),
-  prefix        ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
+  addressFamily         ADDRESS-FAMILY.&afi ({AddressFamilySet}),
+  ipAddressPrefix       ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
 
 ADDRESS-FAMILY ::= CLASS {
   &afi          OCTET STRING (SIZE(2)) UNIQUE,
@@ -236,7 +236,7 @@ END
    authorizes SHOULD be put in front of other AS numbers.  The AS
    numbers MUST NOT duplicate.
 
-4.3.  prefix
+4.3.  ipAddressPrefix
 
    This field contains an AddressFamilyIPAddress which contains one
    instance of addressFamily and one instance of prefix.
