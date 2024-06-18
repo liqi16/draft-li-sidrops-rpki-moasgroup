@@ -1353,14 +1353,7 @@ END
           <p id="section-5-2.3.1">The RP <span class="bcp14">SHOULD</span> check for the existence of a corresponding ROA for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA <span class="bcp14">MUST</span> match the IP prefix in the Signed MOAS Group, and the ASN in the ROA <span class="bcp14">MUST</span> appear in the AS list.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-5-2.4">
-          <p id="section-5-2.4.1">A Signed MOAS Group has three possible validation outcomes:<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5-2.4.2">
-<pre>
- Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid.
- Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the MOAS Group is considered suspicious.
- Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.
-</pre><a href="#section-5-2.4.2" class="pilcrow">¶</a>
-</div>
+          <p id="section-5-2.4.1">A Signed MOAS Group has three possible validation outcomes. (1) Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid. (2) Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the MOAS Group is considered suspicious. (3) Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
 </section>
