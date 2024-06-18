@@ -1,0 +1,170 @@
+
+
+
+
+SIDR Operations                                                     LIQI
+Internet-Draft                                    Your Organization Here
+Intended status: Informational                              18 June 2024
+Expires: 20 December 2024
+
+
+         A Profile for RPKI Signed Group of Multiple-Origin AS
+                 draft-li-sidrops-rpki-moasgroup-latest
+
+Abstract
+
+   This document defines a "Signed MOAS Group", a Cryptographic Message
+   Syntax (CMS) protected content type for use with the Resource Public
+   Key Infrastructure (RPKI) to authenticate the collective announcement
+   of IP prefixes by multiple Autonomous Systems (ASes).  The Signed
+   MOAS Group includes two parts: an IP prefix and a list of ASes
+   authorized to announce the prefix.  At least one of these ASes SHOULD
+   be authorized to announce the prefix by the prefix owner through a
+   Route Origin Authorization (ROA).  The IP prefix in the ROA must
+   match the IP prefix in the Signed MOAS Group, and the ASN in the ROA
+   must appear in the AS list.  The validation of a Signed MOAS Group
+   confirms that the authenticated AS and the listed ASes have
+   collectively agreed to announce the prefix, ensuring that the
+   announcement is legitimate, accurate, and consensually authorized.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://liqi16.github.io/draft-li-sidrops-rpki-moasgroup/draft-li-
+   sidrops-rpki-moasgroup.html.  Status information for this document
+   may be found at https://datatracker.ietf.org/doc/draft-li-sidrops-
+   rpki-moasgroup/.
+
+   Discussion of this document takes place on the SIDR Operations
+   Working Group mailing list (mailto:sidrops@ietf.org), which is
+   archived at https://mailarchive.ietf.org/arch/browse/sidrops/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/sidrops/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/liqi16/draft-li-sidrops-rpki-moasgroup.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 20 December 2024.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Security Considerations
+   4.  IANA Considerations
+   5.  Normative References
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   This document defines a "Signed MOAS Group", a Cryptographic Message
+   Syntax (CMS) [RFC5652] [RFC626] protected content type to carry an IP
+   prefix and a list of Autonomous Systems (ASes) authorized to announce
+   this prefix.  The Signed MOAS Group allows multiple ASes to
+   collaboratively and securely announce an IP prefix, supporting
+   scenarios such as business partnerships, IP address transfers, and
+   DDoS protection services.
+
+   At least one ASes in the AS list SHOULD be authorized to announce the
+   prefix by the prefix owner through a Route Origin Authorization
+   (ROA).  The IP prefix in the ROA must match the IP prefix in the
+   Signed MOAS Group, and the ASN in the ROA must appear in the AS list.
+   The content is collectively signed by the authorized ASes using a
+   multi-signature technique, and the aggregated global signature is
+   attached by the authenticated AS.  This ensures that the announcement
+   is endorsed by all participating ASes and is verifiable by any RPKI-
+   validating remote routing entities.
+
+   To validate a MoasGroup object, a relying party (RP) aggregates the
+   public keys of all ASes in the AS list into a global public key,
+   which is then used to verify the Signed MOAS Group.  If the Signed
+   MOAS Group is verified and a corresponding ROA is found, the MOAS
+   Group is considered valid.  If the Signed MOAS Group is verified but
+   no corresponding ROA is found, it is considered suspicious.  If the
+   Signed MOAS Group cannot be verified, it is considered invalid.
+
+   The Signed MOAS Group provides a mechanism for securely managing
+   multi-origin AS announcements, offering a robust and flexible
+   solution to handle modern routing requirements.  Any prefixes
+   announced by ASes that are not included in a ROA or a validated
+   Signed MOAS Group SHOULD be regarded as suspicious, though their
+   handling is subject to local routing policies.  The intent is to
+   offer a secure and authenticated method for managing MOAS scenarios,
+   enhancing the overall security and integrity of the routing system.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Security Considerations
+
+   TODO Security
+
+4.  IANA Considerations
+
+   This document has no IANA actions.
+
+5.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
+              RFC 5652, DOI 10.17487/RFC5652, September 2009,
+              <https://www.rfc-editor.org/rfc/rfc5652>.
+
+   [RFC626]   Kleinrock, L. and H. Opderbeck, "On a possible lockup
+              condition in IMP subnet due to message sequencing",
+              RFC 626, DOI 10.17487/RFC0626, March 1974,
+              <https://www.rfc-editor.org/rfc/rfc626>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   LIQI
+   Your Organization Here
+   Email: 59596741+liqi16@users.noreply.github.com
