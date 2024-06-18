@@ -151,6 +151,13 @@ This field contains a BIT STRING, its length bounded through the addressFamily f
 
 To validate an MoasGroup, the relying party MUST perform all the validation checks specified in {{RFC6488}}. In addition, the RP MUST perform the following validation steps:
 
+1. The contents of the CMS eContent field MUST conform to all of the constraints described in Section 3.
+2. The RP MUST verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is then used to verify the Signed MOAS Group's signature.
+3. The RP MUST check for the existence of a corresponding Route Origin Authorization (ROA) for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA MUST match the IP prefix in the Signed MOAS Group, and the ASN in the ROA MUST appear in the AS list. 
+4. The Signed MOAS Group has three kinds of validation outcomes.
+ - Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid.
+ - Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the MOAS Group is considered suspicious.
+ - Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.
 
 # Security Considerations
 
