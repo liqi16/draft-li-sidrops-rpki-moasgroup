@@ -1,5 +1,5 @@
 ---
-title: "A Profile for RPKI Signed Group of Legistate Multiple-Origin Autonomous System"
+title: "A Profile for RPKI Signed Group of Legitimate Multiple-Origin Autonomous System"
 abbrev: "rpki-moasgroup"
 category: info
 
