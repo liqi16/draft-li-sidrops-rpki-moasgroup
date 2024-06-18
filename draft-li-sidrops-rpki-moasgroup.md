@@ -99,8 +99,8 @@ id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
 
 RpkiSignedMoasGroup ::= SEQUENCE {
   version [0]	INTEGER DEFAULT 0,
-  prefix 		AddressFamilyIPAddress,
-  asList 		SEQUENCE (SIZE(0..MAX)) OF ASID,
+  prefix	AddressFamilyIPAddress,
+  asList	SEQUENCE (SIZE(0..MAX)) OF ASID,
 }
 
 ASID ::= INTEGER (1..4294967295)
@@ -137,7 +137,7 @@ The version number of the RpkiSignedMoasGroup MUST be 0.
 
 ## asList
 
-This field contains the AS number that is authorized to originate routes to the given IP address prefixes. The AS number that ROA authorizes SHOULD be put in front of other AS numbers. The AS numbers MUST not dupliate.
+This field contains the AS number that is authorized to originate routes to the given IP address prefixes. The AS number that ROA authorizes SHOULD be put in front of other AS numbers. The AS numbers MUST not duplicate.
 
 ## prefix
 
@@ -145,7 +145,7 @@ This field contains an AddressFamilyIPAddress which contains one instance of add
 
 ### addressFamily
 
-This field contains a OCTET STRING which is either '0001'H (IPv4) or '0002'H (IPv6).
+This field contains an OCTET STRING which is either '0001'H (IPv4) or '0002'H (IPv6).
 
 ### prefix
 
@@ -169,20 +169,20 @@ To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group MU
 
 The ASes in the asList that is authorized by the ROA SHOULD be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly RECOMMENDED that the RP only needs to verify that the first AS and the prefix can be validated by the ROA.
 
-Multiple valid MOAS Group objects can exist which contain the same IP prefix. However, it is highly RECOMMENDED that an AS should participate in only one MOAS Group for the same IP prefix. If there is a need to modify the AS list in a MOAS Group, it is highly RECOMMENDED to revoke the current MOAS Group and sign a new one.
+Multiple valid MOAS Group objects can exist that contain the same IP prefix. However, it is highly RECOMMENDED that an AS should participate in only one MOAS Group for the same IP prefix. If there is a need to modify the AS list in a MOAS Group, it is highly RECOMMENDED to revoke the current MOAS Group and sign a new one.
 
 The construction of an 'allowlist' for a given EBGP session using RPKI MOAS Group(s) complements best practices {{RFC7454}} and rejecting RPKI-invalid BGP route announcements {{RFC6811}}. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is recommended to reject the route announcement.
 
 # Security Considerations
 
-Despite the highly recommendation that a Signed MOAS Group be endorsed by at least one ROA, the data contained in a MOAS Group is self-asserted by the AS holder. This means that the presence of an AS in the MOAS Group does not inherently imply any authority from the IP prefix holder for the AS to originate a route for any prefixes. Such authority is separately conveyed in the RPKI through a ROA.
+Despite the highly recommendation that a Signed MOAS Group be validated by at least one ROA, the data contained in a MOAS Group is still self-asserted by the AS holders. This means that the presence of an AS in the MOAS Group does not inherently imply any authority from the IP prefix holder for the AS to originate a route for any prefixes. Such authority is separately conveyed in the RPKI through a ROA.
 
 
 # IANA Considerations
 
 ## SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)
 
-IANA is requested to allocated the following in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
+IANA is requested to allocate the following in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
 
 | Decimal | Description               | Reference   |
 | ------- | ------------------------- | ----------- |
