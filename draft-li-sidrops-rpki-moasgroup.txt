@@ -79,10 +79,11 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+   2.  Requirements Language
+   3.  MoasGroup eContentType
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  Normative References
    Acknowledgments
    Author's Address
 
@@ -123,7 +124,7 @@ Table of Contents
    offer a secure and authenticated method for managing MOAS scenarios,
    enhancing the overall security and integrity of the routing system.
 
-2.  Conventions and Definitions
+2.  Requirements Language
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -131,15 +132,25 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+3.  MoasGroup eContentType
+
+   The eContentType for a MoasGroup is defined as id-ct-
+   rpkiSignedMoasGroup, with Object Identifier (OID)
+   1.2.840.113549.1.9.16.1.TBD.
+
+   This OID MUST appear within both the eContentType in the
+   encapContentInfo object and the ContentType signed attribute in the
+   signerInfo object (see [RFC6488]).
+
+4.  Security Considerations
 
    TODO Security
 
-4.  IANA Considerations
+5.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  Normative References
+6.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -154,6 +165,11 @@ Table of Contents
               condition in IMP subnet due to message sequencing",
               RFC 626, DOI 10.17487/RFC0626, March 1974,
               <https://www.rfc-editor.org/rfc/rfc626>.
+
+   [RFC6488]  Lepinski, M., Chi, A., and S. Kent, "Signed Object
+              Template for the Resource Public Key Infrastructure
+              (RPKI)", RFC 6488, DOI 10.17487/RFC6488, February 2012,
+              <https://www.rfc-editor.org/rfc/rfc6488>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
