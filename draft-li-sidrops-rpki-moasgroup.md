@@ -70,7 +70,7 @@ This OID MUST appear within both the eContentType in the encapContentInfo object
 
 The content of a MoasGroup is a single IP prefix, a list of ASes, and a Route Origin Authorization (ROA). A MoasGroup is formally defined as follows:
 
-```
+~~~
 RpkiSignedMoasGroup-2023
   { iso(1) member-body(2) us(840) rsadsi(113549)
    pkcs(1) pkcs9(9) smime(16) mod(0)
@@ -125,8 +125,8 @@ IMPORTS
     address       BIT STRING (SIZE(0..len)) }
 
 END
-    
-```
+~~~
+
 ## Version
 
 The version number of the RpkiSignedMoasGroup MUST be 0.
