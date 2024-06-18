@@ -194,7 +194,7 @@ id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
 
 RpkiSignedMoasGroup ::= SEQUENCE {
   version [0]   INTEGER DEFAULT 0,
-  prefix        AddressFamilyIPAddress,
+  ipAddressPrefix       AddressFamilyIPAddress,
   asList        SEQUENCE (SIZE(0..MAX)) OF ASID,
 }
 
@@ -202,7 +202,7 @@ ASID ::= INTEGER (1..4294967295)
 
 AddressFamilyIPAddress ::= SEQUENCE {
   addressFamily         ADDRESS-FAMILY.&afi ({AddressFamilySet}),
-  ipAddressPrefix       ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
+  prefix        ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
 
 ADDRESS-FAMILY ::= CLASS {
   &afi          OCTET STRING (SIZE(2)) UNIQUE,
