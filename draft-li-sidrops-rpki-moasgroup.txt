@@ -8,7 +8,8 @@ Intended status: Informational                              18 June 2024
 Expires: 20 December 2024
 
 
-  A Profile for RPKI Signed Group of Multiple-Origin Autonomous System
+A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
+            in the Resource Public Key Infrastructure (RPKI)
                  draft-li-sidrops-rpki-moasgroup-latest
 
 Abstract
