@@ -178,7 +178,36 @@ Despite the highly recommendation that a Signed MOAS Group be endorsed by at lea
 
 # IANA Considerations
 
-This document has no IANA actions.
+## SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)
+
+IANA is requested to allocated the following in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
+
+| Decimal | Description               | Reference   |
+| ------- | ------------------------- | ----------- |
+| TBD     | Id-ct-rpkiSignedMoasGroup | draft-xxxxx |
+
+## RPKI Signed Objects
+
+IANA is requested to register two OIDs in the "RPKI Signed Objects" registry {{RFC6488}} as follows:
+
+| Name | OID               | Reference   |
+| ------- | ------------------------- | ----------- |
+| Signed MoasGroup     | 1.2.840.113549.1.9.16.1.TBD | draft-xxxxx |
+
+## RPKI Repository Name Schemes
+
+IANA is requested to add the Signed MoasGroup file extension to the "RPKI Repository Name Schemes" registry {{RFC6481}} as follows:
+
+| Filename Extension | RPKI Object               | Reference   |
+| ------- | ------------------------- | ----------- |
+| .smg     | Signed MoasGroup | draft-xxxxx |
+
+## SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)
+IANA is requested to allocate the following in the "SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry:
+
+| Decimal | Description | Reference   |
+| ------- | ------------------------- | ----------- |
+| .TBD     | id-mod-rpkiSignedMoasGroup-2024 | draft-xxxxx |
 
 
 --- back
