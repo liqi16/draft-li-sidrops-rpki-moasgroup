@@ -1,5 +1,5 @@
 ---
-title: "A Profile for RPKI Signed Group of Legitimate Multiple-Origin Autonomous System"
+title: "A Profile for RPKI Signed Group of Multiple-Origin Autonomous System"
 abbrev: "rpki-moasgroup"
 category: info
 
@@ -167,15 +167,15 @@ To validate a MoasGroup, the relying party MUST perform all the validation check
 
 To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group MUST use BLS Signatures {{I-D.draft-irtf-cfrg-bls-signature-05}}. This ensures that the signatures can be efficiently combined into a single global signature.
 
-The ASes in the asList that is authorized by the ROA SHOULD be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly RECOMMENDED that the RP only needs to verify that the first AS and the prefix can be validated by the ROA.
+The ASes in the AS List that are authorized by the ROA SHOULD be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly RECOMMENDED that the RP only verifies whether the first AS and the prefix can be validated by the ROA.
 
-Multiple valid MOAS Group objects can exist that contain the same IP prefix. However, it is highly RECOMMENDED that an AS should participate in only one MOAS Group for the same IP prefix. If there is a need to modify the AS list in a MOAS Group, it is highly RECOMMENDED to revoke the current MOAS Group and sign a new one.
+Multiple valid MOAS Group objects can exist that contain the same IP prefix. However, it is highly RECOMMENDED that an AS should only participate in one MOAS Group for the same IP prefix. If the AS List of a MOAS Group needs modification, it is highly RECOMMENDED to revoke the current MOAS Group and sign a new one.
 
-The construction of an 'allowlist' for a given EBGP session using RPKI MOAS Group(s) complements best practices {{RFC7454}} and rejecting RPKI-invalid BGP route announcements {{RFC6811}}. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is recommended to reject the route announcement.
+The construction of an 'allowlist' for a given EBGP session using MOAS Group(s) complements best practices {{RFC7454}} and rejecting RPKI-invalid BGP route announcements {{RFC6811}}. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is RECOMMENDED to reject the route announcement.
 
 # Security Considerations
 
-Despite the highly recommendation that a Signed MOAS Group be validated by at least one ROA, the data contained in a MOAS Group is still self-asserted by the AS holders. This means that the presence of an AS in the MOAS Group does not inherently imply any authority from the IP prefix holder for the AS to originate a route for any prefixes. Such authority is separately conveyed in the RPKI through a ROA.
+Despite it is highly RECOMMENDED that a Signed MOAS Group SHOULD be validated by at least one ROA, the data contained in a MOAS Group is still self-asserted by the group of AS holders. This means that the presence of an AS in the MOAS Group does not inherently imply any authority from the IP prefix holder for the AS to originate a route for any prefixes. Such authority is separately conveyed in the RPKI through a ROA.
 
 
 # IANA Considerations
