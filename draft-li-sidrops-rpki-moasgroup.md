@@ -30,8 +30,8 @@ author:
     email: "59596741+liqi16@users.noreply.github.com"
 
 normative:
-  RFC5652
-  RFC626
+  RFC5652:
+  RFC626:
 
 informative:
 
