@@ -71,27 +71,22 @@ This OID MUST appear within both the eContentType in the encapContentInfo object
 The content of a MoasGroup is a single IP prefix, a list of ASes, and a Route Origin Authorization (ROA). A MoasGroup is formally defined as follows:
 
 ~~~
-RpkiSignedMoasGroup-2023
-  { iso(1) member-body(2) us(840) rsadsi(113549)
-   pkcs(1) pkcs9(9) smime(16) mod(0)
-   id-mod-rpkiSignedMoasGroup-2024(TBD) }
+RpkiSignedMoasGroup-2024{ iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9) smime(16) mod(0) id-mod-rpkiSignedMoasGroup-2024(TBD) }
    
-   DEFINITIONS EXPLICIT TAGS ::=
+DEFINITIONS EXPLICIT TAGS ::=
 BEGIN
 
 IMPORTS
   CONTENT-TYPE
-  FROM CryptographicMessageSyntax-2010 -- in [RFC6268]
-    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-      pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) };
+  FROM CryptographicMessageSyntax-2010 -- in {{RFC6268}}
+    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) };
 
   ct-rpkiSignedMoasGroup CONTENT-TYPE ::=
   { TYPE RpkiSignedMoasGroup
    IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
    
    id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
-  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-  pkcs-9(9) id-smime(16) id-ct(1) TBD }
+  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9) id-smime(16) id-ct(1) TBD }
     
   RpkiSignedMoasGroup ::= SEQUENCE {
     version [0]     INTEGER DEFAULT 0,
