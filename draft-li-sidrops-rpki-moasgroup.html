@@ -1350,23 +1350,25 @@ END
           <p id="section-5-2.2.1">The RP <span class="bcp14">MUST</span> verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is subsequently used to verify the global signature of the Signed MOAS Group object.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-5-2.3">
-          <p id="section-5-2.3.1">The RP <span class="bcp14">MUST</span> check for the existence of a corresponding ROA for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA <span class="bcp14">MUST</span> match the IP prefix in the Signed MOAS Group, and the ASN in the ROA <span class="bcp14">MUST</span> appear in the AS list.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.3.1">The RP <span class="bcp14">SHOULD</span> check for the existence of a corresponding ROA for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA <span class="bcp14">MUST</span> match the IP prefix in the Signed MOAS Group, and the ASN in the ROA <span class="bcp14">MUST</span> appear in the AS list.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-5-2.4">
-          <span class="break"></span><dl class="dlParallel" id="section-5-2.4.1">
-            <dt id="section-5-2.4.1.1">A Signed MOAS Group has three possible validation outcomes:</dt>
-            <dd style="margin-left: 1.5em" id="section-5-2.4.1.2">
-              <p id="section-5-2.4.1.2.1">Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid.<a href="#section-5-2.4.1.2.1" class="pilcrow">¶</a></p>
+      </ol>
+<ol start="1" type="1" class="normal type-1" id="section-5-3">
+<li id="section-5-3.1">
+          <span class="break"></span><dl class="dlParallel" id="section-5-3.1.1">
+            <dt id="section-5-3.1.1.1">A Signed MOAS Group has three possible validation outcomes:</dt>
+            <dd style="margin-left: 1.5em" id="section-5-3.1.1.2">
+              <p id="section-5-3.1.1.2.1">Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid.<a href="#section-5-3.1.1.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-5-2.4.1.3"></dt>
-            <dd style="margin-left: 1.5em" id="section-5-2.4.1.4">
-              <p id="section-5-2.4.1.4.1">Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the MOAS Group is considered suspicious.<a href="#section-5-2.4.1.4.1" class="pilcrow">¶</a></p>
+<dt id="section-5-3.1.1.3"></dt>
+            <dd style="margin-left: 1.5em" id="section-5-3.1.1.4">
+              <p id="section-5-3.1.1.4.1">Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the MOAS Group is considered suspicious.<a href="#section-5-3.1.1.4.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-5-2.4.1.5"></dt>
-            <dd style="margin-left: 1.5em" id="section-5-2.4.1.6">
-              <p id="section-5-2.4.1.6.1">Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.<a href="#section-5-2.4.1.6.1" class="pilcrow">¶</a></p>
+<dt id="section-5-3.1.1.5"></dt>
+            <dd style="margin-left: 1.5em" id="section-5-3.1.1.6">
+              <p id="section-5-3.1.1.6.1">Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.<a href="#section-5-3.1.1.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 </dl>
