@@ -75,7 +75,7 @@ RpkiSignedMoasGroup-2023
   { iso(1) member-body(2) us(840) rsadsi(113549)
    pkcs(1) pkcs9(9) smime(16) mod(0)
    id-mod-rpkiSignedMoasGroup-2024(TBD) }
-   
+
    DEFINITIONS EXPLICIT TAGS ::=
 BEGIN
 
@@ -146,6 +146,11 @@ This field contains a OCTET STRING which is either '0001'H (IPv4) or '0002'H (IP
 ### prefix
 
 This field contains a BIT STRING, its length bounded through the addressFamily field. The type is a BIT STRING, see Section 2.2.3.8 of {{RFC3779}} for more information.
+
+# MoasGroup Validation
+
+To validate an MoasGroup, the relying party MUST perform all the validation checks specified in {{RFC6488}}. In addition, the RP MUST perform the following validation steps:
+
 
 # Security Considerations
 
