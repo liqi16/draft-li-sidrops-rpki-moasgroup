@@ -14,20 +14,18 @@ A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
 
 Abstract
 
-   This document defines an "RPKI Signed MOAS Group", a Cryptographic
-   Message Syntax (CMS) protected content type for use with the Resource
-   Public Key Infrastructure (RPKI) to authenticate the collective
-   announcement of IP prefixes by Multiple Origin Autonomous System
-   (MOAS).  The Signed MOAS Group includes two parts: an IP prefix and a
-   list of Autonomous Systems (ASes) authorized to announce the prefix.
-   At least one of these ASes SHOULD be authorized to announce the
-   prefix by the prefix owner through a Route Origin Authorization
-   (ROA).  The IP prefix in the ROA must match the IP prefix in the
-   Signed MOAS Group, and the AS number (ASN) in the ROA must appear in
-   the AS list.  The validation of a Signed MOAS Group confirms that the
-   authorized ASes and other listed ASes have collectively agreed to
-   announce the prefix, ensuring that the announcement is legitimate,
-   accurate, and consensually authorized.
+   This document defines a "Signed MOAS Group", a Cryptographic Message
+   Syntax (CMS) protected content type for use with the Resource Public
+   Key Infrastructure (RPKI) to authenticate the collective announcement
+   of IP prefixes by Multiple Origin Autonomous System (MOAS).  The
+   Signed MOAS Group includes two parts: an IP prefix and a list of
+   Autonomous Systems (ASes) authorized to announce the prefix.  At
+   least one of these ASes SHOULD be authorized to announce the prefix
+   by the prefix owner through a Route Origin Authorization (ROA).  The
+   validation of a Signed MOAS Group confirms that the authorized ASes
+   and other listed ASes have collectively agreed to announce the
+   prefix, ensuring that the announcement is legitimate, accurate, and
+   consensually authorized.
 
 About This Document
 
@@ -113,17 +111,19 @@ Table of Contents
    scenarios such as business partnerships, IP address transfers, and
    DDoS protection services.
 
-   The Signed MOAS Group includes two parts: an IP prefix and a list of
-   Autonomous Systems (ASes) authorized to announce the prefix.  At
-   least one ASes in the AS list SHOULD be authorized to announce the
-   prefix by the prefix owner through an ROA.  The IP prefix in the ROA
-   must match the IP prefix in the Signed MOAS Group, and the ASN in the
-   ROA must appear in the AS list.  The content is collectively signed
-   by the authorized ASes using a multi-signature technique, and the
-   aggregated global signature is attached to the Signed MOAS Group
-   object.  This ensures that the announcement is endorsed by all
-   participating ASes and is verifiable by any RPKI-validating remote
-   routing entities.
+   The Signed MOAS Group consists of two components: an IP prefix and a
+   list of Autonomous Systems (ASes) authorized to announce the prefix,
+   which allows other RPKI-validating routing entities to audit the
+   collection of announcements from multiple originating AS.  At least
+   one ASes in the AS list SHOULD be authorized to announce the prefix
+   by the prefix owner through a corresponding ROA, which means the IP
+   prefix in the ROA MUST match the IP prefix in the Signed MOAS Group
+   and the ASN in the ROA MUST appear in the AS list.  The content is
+   collectively signed by the listed ASes using a multi-signature
+   technique, and the aggregated global signature is attached to the
+   Signed MOAS Group object, ensuring that the announcement could be
+   legitimately proposed by all participating ASes and is verifiable by
+   any RPKI-validating remote routing entities.
 
    To validate a MoasGroup object, a relying party (RP) aggregates the
    public keys of all ASes in the AS list into a global public key,
@@ -138,11 +138,14 @@ Table of Contents
    The Signed MOAS Group provides a mechanism for securely managing
    multi-origin AS announcements, offering a robust and flexible
    solution to handle modern routing requirements.  Any prefixes
-   announced by ASes that are not included in a ROA or a validated
+   announced by ASes that are not included in an ROA or a validated
    Signed MOAS Group SHOULD be regarded as suspicious, though their
    handling is subject to local routing policies.  The intent is to
    offer a secure and authenticated method for managing MOAS scenarios,
    enhancing the overall security and integrity of the routing system.
+
+   Signed MOAS Group objects follow the Signed Object Template for the
+   RPKI [RFC6488].
 
 2.  Requirements Language
 
@@ -231,7 +234,7 @@ END
    This field contains the AS numbers that are authorized to originate
    routes to the given IP address prefixes.  The AS numbers that ROA
    authorizes SHOULD be put in front of other AS numbers.  The AS
-   numbers MUST not duplicate.
+   numbers MUST NOT duplicate.
 
 4.3.  prefix
 
@@ -297,7 +300,7 @@ END
    ROA.
 
    Multiple valid MOAS Group objects can exist that contain the same IP
-   prefix.  However, it is highly RECOMMENDED that an AS should only
+   prefix.  However, it is highly RECOMMENDED that an AS SHOULD only
    participate in one MOAS Group for the same IP prefix.  If the AS List
    of a MOAS Group needs modification, it is highly RECOMMENDED to
    revoke the current MOAS Group and sign a new one.
