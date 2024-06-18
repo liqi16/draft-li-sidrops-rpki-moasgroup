@@ -19,11 +19,11 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "A Profile for RPKI Signed Group of Multiple-Origin AS"
+abbrev: "rpki-moasgroup"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-li-sidrops-rpki-moasgroup-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
