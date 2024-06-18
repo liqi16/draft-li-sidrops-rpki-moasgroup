@@ -1,5 +1,5 @@
 ---
-title: "A Profile for RPKI Signed Group of Multiple-Origin AS"
+title: "A Profile for RPKI Signed Group of Legistate Multiple-Origin Autonomous System"
 abbrev: "rpki-moasgroup"
 category: info
 
@@ -44,7 +44,7 @@ informative:
 
 --- abstract
 
-This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous Systems (MOAS). The Signed MOAS Group includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes SHOULD be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The IP prefix in the ROA must match the IP prefix in the Signed MOAS Group, and the AS number (ASN) in the ROA must appear in the AS list. The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and consensually authorized.
+This document defines an "RPKI Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes SHOULD be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The IP prefix in the ROA must match the IP prefix in the Signed MOAS Group, and the AS number (ASN) in the ROA must appear in the AS list. The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and consensually authorized.
 
 
 --- middle
