@@ -32,6 +32,7 @@ author:
 normative:
   RFC5652:
   RFC626:
+  RFC6488:
 
 informative:
 
@@ -54,9 +55,15 @@ To validate a MoasGroup object, a relying party (RP) aggregates the public keys 
 The Signed MOAS Group provides a mechanism for securely managing multi-origin AS announcements, offering a robust and flexible solution to handle modern routing requirements. Any prefixes announced by ASes that are not included in a ROA or a validated Signed MOAS Group SHOULD be regarded as suspicious, though their handling is subject to local routing policies. The intent is to offer a secure and authenticated method for managing MOAS scenarios, enhancing the overall security and integrity of the routing system.
 
 
-# Conventions and Definitions
+# Requirements Language
 
 {::boilerplate bcp14-tagged}
+
+# MoasGroup eContentType
+
+The eContentType for a MoasGroup is defined as id-ct-rpkiSignedMoasGroup, with Object Identifier (OID) 1.2.840.113549.1.9.16.1.TBD.
+
+This OID MUST appear within both the eContentType in the encapContentInfo object and the ContentType signed attribute in the signerInfo object (see {{RFC6488}}).
 
 
 # Security Considerations
