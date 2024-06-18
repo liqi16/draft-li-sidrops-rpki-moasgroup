@@ -1170,6 +1170,20 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-smi-security-for-s-mime-cms" class="internal xref">SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-rpki-signed-objects" class="internal xref">RPKI Signed Objects</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-rpki-repository-name-scheme" class="internal xref">RPKI Repository Name Schemes</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-smi-security-for-s-mime-mod" class="internal xref">SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
@@ -1351,7 +1365,7 @@ END
       <h2 id="name-operational-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-6-1">To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group <span class="bcp14">MUST</span> use BLS Signatures [draft-irtf-cfrg-bls-signature-05]. This ensures that the signatures can be efficiently combined into a single global signature.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group <span class="bcp14">MUST</span> use BLS Signatures <span>[<a href="#I-D.draft-irtf-cfrg-bls-signature-05" class="cite xref">I-D.draft-irtf-cfrg-bls-signature-05</a>]</span>. This ensures that the signatures can be efficiently combined into a single global signature.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">The ASes in the asList that is authorized by the ROA <span class="bcp14">SHOULD</span> be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly <span class="bcp14">RECOMMENDED</span> that the RP only needs to verify that the first AS and the prefix can be validated by the ROA.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">Multiple valid MOAS Group objects can exist which contain the same IP prefix. However, it is highly <span class="bcp14">RECOMMENDED</span> that an AS should participate in only one MOAS Group for the same IP prefix. If there is a need to modify the AS list in a MOAS Group, it is highly <span class="bcp14">RECOMMENDED</span> to revoke the current MOAS Group and sign a new one.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <p id="section-6-4">The construction of an 'allowlist' for a given EBGP session using RPKI MOAS Group(s) complements best practices <span>[<a href="#RFC7454" class="cite xref">RFC7454</a>]</span> and rejecting RPKI-invalid BGP route announcements <span>[<a href="#RFC6811" class="cite xref">RFC6811</a>]</span>. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is recommended to reject the route announcement.<a href="#section-6-4" class="pilcrow">¶</a></p>
@@ -1370,7 +1384,106 @@ END
       <h2 id="name-iana-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">This document has no IANA actions.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div id="smi-security-for-smime-cms-content-type-1284011354919161">
+<section id="section-8.1">
+        <h3 id="name-smi-security-for-s-mime-cms">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-smi-security-for-s-mime-cms" class="section-name selfRef">SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)</a>
+        </h3>
+<p id="section-8.1-1">IANA is requested to allocated the following in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry:<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Decimal</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">TBD</td>
+              <td class="text-left" rowspan="1" colspan="1">Id-ct-rpkiSignedMoasGroup</td>
+              <td class="text-left" rowspan="1" colspan="1">draft-xxxxx</td>
+            </tr>
+          </tbody>
+        </table>
+</section>
+</div>
+<div id="rpki-signed-objects">
+<section id="section-8.2">
+        <h3 id="name-rpki-signed-objects">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-rpki-signed-objects" class="section-name selfRef">RPKI Signed Objects</a>
+        </h3>
+<p id="section-8.2-1">IANA is requested to register two OIDs in the "RPKI Signed Objects" registry <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span> as follows:<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+          <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">OID</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Signed MoasGroup</td>
+              <td class="text-left" rowspan="1" colspan="1">1.2.840.113549.1.9.16.1.TBD</td>
+              <td class="text-left" rowspan="1" colspan="1">draft-xxxxx</td>
+            </tr>
+          </tbody>
+        </table>
+</section>
+</div>
+<div id="rpki-repository-name-schemes">
+<section id="section-8.3">
+        <h3 id="name-rpki-repository-name-scheme">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-rpki-repository-name-scheme" class="section-name selfRef">RPKI Repository Name Schemes</a>
+        </h3>
+<p id="section-8.3-1">IANA is requested to add the Signed MoasGroup file extension to the "RPKI Repository Name Schemes" registry <span>[<a href="#RFC6481" class="cite xref">RFC6481</a>]</span> as follows:<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-3">
+          <caption><a href="#table-3" class="selfRef">Table 3</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Filename Extension</th>
+              <th class="text-left" rowspan="1" colspan="1">RPKI Object</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">.smg</td>
+              <td class="text-left" rowspan="1" colspan="1">Signed MoasGroup</td>
+              <td class="text-left" rowspan="1" colspan="1">draft-xxxxx</td>
+            </tr>
+          </tbody>
+        </table>
+</section>
+</div>
+<div id="smi-security-for-smime-module-identifier-1284011354919160">
+<section id="section-8.4">
+        <h3 id="name-smi-security-for-s-mime-mod">
+<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-smi-security-for-s-mime-mod" class="section-name selfRef">SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)</a>
+        </h3>
+<p id="section-8.4-1">IANA is requested to allocate the following in the "SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry:<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-4">
+          <caption><a href="#table-4" class="selfRef">Table 4</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Decimal</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">.TBD</td>
+              <td class="text-left" rowspan="1" colspan="1">id-mod-rpkiSignedMoasGroup-2024</td>
+              <td class="text-left" rowspan="1" colspan="1">draft-xxxxx</td>
+            </tr>
+          </tbody>
+        </table>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-normative-references">
@@ -1379,6 +1492,10 @@ END
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
+<dt id="I-D.draft-irtf-cfrg-bls-signature-05">[I-D.draft-irtf-cfrg-bls-signature-05]</dt>
+      <dd>
+<span class="refAuthor">Boneh, D.</span>, <span class="refAuthor">Gorbunov, S.</span>, <span class="refAuthor">Wahby, R. S.</span>, <span class="refAuthor">Wee, H.</span>, <span class="refAuthor">Wood, C. A.</span>, and <span class="refAuthor">Z. Zhang</span>, <span class="refTitle">"BLS Signatures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-bls-signature-05</span>, <time datetime="2022-06-16" class="refDate">16 June 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
       <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
@@ -1394,6 +1511,10 @@ END
 <dt id="RFC626">[RFC626]</dt>
       <dd>
 <span class="refAuthor">Kleinrock, L.</span> and <span class="refAuthor">H. Opderbeck</span>, <span class="refTitle">"On a possible lockup condition in IMP subnet due to message sequencing"</span>, <span class="seriesInfo">RFC 626</span>, <span class="seriesInfo">DOI 10.17487/RFC0626</span>, <time datetime="1974-03" class="refDate">March 1974</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc626">https://www.rfc-editor.org/rfc/rfc626</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6481">[RFC6481]</dt>
+      <dd>
+<span class="refAuthor">Huston, G.</span>, <span class="refAuthor">Loomans, R.</span>, and <span class="refAuthor">G. Michaelson</span>, <span class="refTitle">"A Profile for Resource Certificate Repository Structure"</span>, <span class="seriesInfo">RFC 6481</span>, <span class="seriesInfo">DOI 10.17487/RFC6481</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6481">https://www.rfc-editor.org/rfc/rfc6481</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6488">[RFC6488]</dt>
       <dd>
