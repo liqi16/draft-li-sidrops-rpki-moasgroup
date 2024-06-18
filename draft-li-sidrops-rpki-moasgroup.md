@@ -36,6 +36,8 @@ normative:
   RFC3779:
   RFC6811:
   RFC7454:
+  RFC6481:
+  I-D.draft-irtf-cfrg-bls-signature-05:
 
 informative:
 
@@ -163,7 +165,7 @@ To validate a MoasGroup, the relying party MUST perform all the validation check
 
 # Operational Considerations
 
-To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group MUST use BLS Signatures [draft-irtf-cfrg-bls-signature-05]. This ensures that the signatures can be efficiently combined into a single global signature.
+To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group MUST use BLS Signatures {{I-D.draft-irtf-cfrg-bls-signature-05}}. This ensures that the signatures can be efficiently combined into a single global signature.
 
 The ASes in the asList that is authorized by the ROA SHOULD be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly RECOMMENDED that the RP only needs to verify that the first AS and the prefix can be validated by the ROA.
 
