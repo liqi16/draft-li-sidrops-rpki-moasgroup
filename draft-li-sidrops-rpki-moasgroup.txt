@@ -8,7 +8,7 @@ Intended status: Informational                              18 June 2024
 Expires: 20 December 2024
 
 
-A Profile for RPKI Signed Group of Legistate Multiple-Origin Autonomous
+A Profile for RPKI Signed Group of Legitimate Multiple-Origin Autonomous
                                  System
                  draft-li-sidrops-rpki-moasgroup-latest
 
