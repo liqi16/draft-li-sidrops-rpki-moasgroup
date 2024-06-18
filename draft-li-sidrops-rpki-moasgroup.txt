@@ -88,9 +88,10 @@ Table of Contents
        4.3.1.  addressFamily
        4.3.2.  prefix
    5.  MoasGroup Validation
-   6.  Security Considerations
-   7.  IANA Considerations
-   8.  Normative References
+   6.  Operational Considerations
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  Normative References
    Acknowledgments
    Author's Address
 
@@ -105,14 +106,14 @@ Table of Contents
    DDoS protection services.
 
    At least one ASes in the AS list SHOULD be authorized to announce the
-   prefix by the prefix owner through a Route Origin Authorization
-   (ROA).  The IP prefix in the ROA must match the IP prefix in the
-   Signed MOAS Group, and the ASN in the ROA must appear in the AS list.
-   The content is collectively signed by the authorized ASes using a
-   multi-signature technique, and the aggregated global signature is
-   attached by the authenticated AS.  This ensures that the announcement
-   is endorsed by all participating ASes and is verifiable by any RPKI-
-   validating remote routing entities.
+   prefix by the prefix owner through a ROA.  The IP prefix in the ROA
+   must match the IP prefix in the Signed MOAS Group, and the ASN in the
+   ROA must appear in the AS list.  The content is collectively signed
+   by the authorized ASes using a multi-signature technique, and the
+   aggregated global signature is attached by the authenticated AS.
+   This ensures that the announcement is endorsed by all participating
+   ASes and is verifiable by any RPKI-validating remote routing
+   entities.
 
    To validate a MoasGroup object, a relying party (RP) aggregates the
    public keys of all ASes in the AS list into a global public key,
@@ -151,9 +152,8 @@ Table of Contents
 
 4.  MoasGroup eContent
 
-   The content of a MoasGroup is a single IP prefix, a list of ASes, and
-   a Route Origin Authorization (ROA).  A MoasGroup is formally defined
-   as follows:
+   The content of a MoasGroup is a single IP prefix and a list of ASes.
+   A MoasGroup is formally defined as follows:
 
 RpkiSignedMoasGroup-2023
   { iso(1) member-body(2) us(840) rsadsi(113549)
@@ -223,7 +223,7 @@ END
 
 4.3.  prefix
 
-   This field contains a AddressFamilyIPAddress which contains one
+   This field contains an AddressFamilyIPAddress which contains one
    instance of addressFamily and one instance of prefix.
 
 4.3.1.  addressFamily
@@ -239,19 +239,71 @@ END
 
 5.  MoasGroup Validation
 
-   To validate an MoasGroup, the relying party MUST perform all the
+   To validate a MoasGroup, the relying party MUST perform all the
    validation checks specified in [RFC6488].  In addition, the RP MUST
    perform the following validation steps:
 
-6.  Security Considerations
+   1.  The contents of the CMS eContent field MUST conform to all of the
+       constraints described in Section 3.
 
-   TODO Security
+   2.  The RP MUST verify the signatures of the Signed MOAS Group.  This
+       involves aggregating the public keys of all ASes listed in the AS
+       list into a global public key.  The aggregated global public key
+       is then used to verify the Signed MOAS Group's signature.
 
-7.  IANA Considerations
+   3.  The RP MUST check for the existence of a corresponding ROA for
+       the IP prefix in the Signed MOAS Group.  The IP prefix in the ROA
+       MUST match the IP prefix in the Signed MOAS Group, and the ASN in
+       the ROA MUST appear in the AS list.
+
+   4.  The Signed MOAS Group has three kinds of validation outcomes.  -
+       Valid: If the Signed MOAS Group is verified and at least one
+       corresponding ROA is found, the MOAS Group is considered valid.
+       - Suspicious: If the Signed MOAS Group is verified but no
+       corresponding ROA is found, the MOAS Group is considered
+       suspicious.  - Invalid: If the Signed MOAS Group cannot be
+       verified, it is considered invalid.
+
+6.  Operational Considerations
+
+   To aggregate the signatures of all ASes in the AS list, the Signed
+   MOAS Group MUST use BLS Signatures [draft-irtf-cfrg-bls-signature-
+   05].  This ensures that the signatures can be efficiently combined
+   into a single global signature.
+
+   The ASes in the asList that is authorized by the ROA SHOULD be placed
+   at the beginning of the AS list, ahead of any non-authorized ASes.
+   This ordering can improve the efficiency of the RP's validation
+   process.  It is highly RECOMMENDED that the RP only needs to verify
+   that the first AS and the prefix can be validated by the ROA.
+
+   Multiple valid MOAS Group objects can exist which contain the same IP
+   prefix.  However, it is highly RECOMMENDED that an AS should
+   participate in only one MOAS Group for the same IP prefix.  If there
+   is a need to modify the AS list in a MOAS Group, it is highly
+   RECOMMENDED to revoke the current MOAS Group and sign a new one.
+
+   The construction of an 'allowlist' for a given EBGP session using
+   RPKI MOAS Group(s) complements best practices [RFC7454] and rejecting
+   RPKI-invalid BGP route announcements [RFC6811].  In other words, if a
+   given BGP route is covered by an RPKI MOAS Group, but is also
+   "invalid" from a Route Origin Validation perspective, it is
+   recommended to reject the route announcement.
+
+7.  Security Considerations
+
+   Despite the highly recommendation that a Signed MOAS Group be
+   endorsed by at least one ROA, the data contained in a MOAS Group is
+   self-asserted by the AS holder.  This means that the presence of an
+   AS in the MOAS Group does not inherently imply any authority from the
+   IP prefix holder for the AS to originate a route for any prefixes.
+   Such authority is separately conveyed in the RPKI through a ROA.
+
+8.  IANA Considerations
 
    This document has no IANA actions.
 
-8.  Normative References
+9.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -276,6 +328,15 @@ END
               Template for the Resource Public Key Infrastructure
               (RPKI)", RFC 6488, DOI 10.17487/RFC6488, February 2012,
               <https://www.rfc-editor.org/rfc/rfc6488>.
+
+   [RFC6811]  Mohapatra, P., Scudder, J., Ward, D., Bush, R., and R.
+              Austein, "BGP Prefix Origin Validation", RFC 6811,
+              DOI 10.17487/RFC6811, January 2013,
+              <https://www.rfc-editor.org/rfc/rfc6811>.
+
+   [RFC7454]  Durand, J., Pepelnjak, I., and G. Doering, "BGP Operations
+              and Security", BCP 194, RFC 7454, DOI 10.17487/RFC7454,
+              February 2015, <https://www.rfc-editor.org/rfc/rfc7454>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
