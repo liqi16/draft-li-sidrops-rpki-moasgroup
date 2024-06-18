@@ -137,7 +137,7 @@ The version number of the RpkiSignedMoasGroup MUST be 0.
 
 ## asList
 
-This field contains the AS number that is authorized to originate routes to the given IP address prefixes. The AS number that ROA authorizes SHOULD be put in front of other AS numbers. The AS numbers MUST not duplicate.
+This field contains the AS numbers that are authorized to originate routes to the given IP address prefixes. The AS numbers that ROA authorizes SHOULD be put in front of other AS numbers. The AS numbers MUST not duplicate.
 
 ## prefix
 
