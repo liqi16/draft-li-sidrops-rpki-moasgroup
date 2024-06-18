@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>A Profile for RPKI Signed Group of Legitimate Multiple-Origin Autonomous System</title>
+<title>A Profile for RPKI Signed Group of Multiple-Origin Autonomous System</title>
 <meta content="LIQI" name="author">
 <meta content='
        This document defines an "RPKI Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes  SHOULD  be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The IP prefix in the ROA must match the IP prefix in the Signed MOAS Group, and the AS number (ASN) in the ROA must appear in the AS list. The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and consensually authorized. 
@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">A Profile for RPKI Signed Group of Legitimate Multiple-Origin Autonomous System</h1>
+<h1 id="title">A Profile for RPKI Signed Group of Multiple-Origin Autonomous System</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines an "RPKI Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes <span class="bcp14">SHOULD</span> be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The IP prefix in the ROA must match the IP prefix in the Signed MOAS Group, and the AS number (ASN) in the ROA must appear in the AS list. The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and consensually authorized.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1379,9 +1379,9 @@ END
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
 <p id="section-6-1">To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group <span class="bcp14">MUST</span> use BLS Signatures <span>[<a href="#I-D.draft-irtf-cfrg-bls-signature-05" class="cite xref">I-D.draft-irtf-cfrg-bls-signature-05</a>]</span>. This ensures that the signatures can be efficiently combined into a single global signature.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The ASes in the asList that is authorized by the ROA <span class="bcp14">SHOULD</span> be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly <span class="bcp14">RECOMMENDED</span> that the RP only needs to verify that the first AS and the prefix can be validated by the ROA.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">Multiple valid MOAS Group objects can exist that contain the same IP prefix. However, it is highly <span class="bcp14">RECOMMENDED</span> that an AS should participate in only one MOAS Group for the same IP prefix. If there is a need to modify the AS list in a MOAS Group, it is highly <span class="bcp14">RECOMMENDED</span> to revoke the current MOAS Group and sign a new one.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p id="section-6-4">The construction of an 'allowlist' for a given EBGP session using RPKI MOAS Group(s) complements best practices <span>[<a href="#RFC7454" class="cite xref">RFC7454</a>]</span> and rejecting RPKI-invalid BGP route announcements <span>[<a href="#RFC6811" class="cite xref">RFC6811</a>]</span>. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is recommended to reject the route announcement.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-2">The ASes in the AS List that are authorized by the ROA <span class="bcp14">SHOULD</span> be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly <span class="bcp14">RECOMMENDED</span> that the RP only verifies whether the first AS and the prefix can be validated by the ROA.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">Multiple valid MOAS Group objects can exist that contain the same IP prefix. However, it is highly <span class="bcp14">RECOMMENDED</span> that an AS should only participate in one MOAS Group for the same IP prefix. If the AS List of a MOAS Group needs modification, it is highly <span class="bcp14">RECOMMENDED</span> to revoke the current MOAS Group and sign a new one.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">The construction of an 'allowlist' for a given EBGP session using MOAS Group(s) complements best practices <span>[<a href="#RFC7454" class="cite xref">RFC7454</a>]</span> and rejecting RPKI-invalid BGP route announcements <span>[<a href="#RFC6811" class="cite xref">RFC6811</a>]</span>. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is <span class="bcp14">RECOMMENDED</span> to reject the route announcement.<a href="#section-6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1389,7 +1389,7 @@ END
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">Despite the highly recommendation that a Signed MOAS Group be validated by at least one ROA, the data contained in a MOAS Group is still self-asserted by the AS holders. This means that the presence of an AS in the MOAS Group does not inherently imply any authority from the IP prefix holder for the AS to originate a route for any prefixes. Such authority is separately conveyed in the RPKI through a ROA.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">Despite it is highly <span class="bcp14">RECOMMENDED</span> that a Signed MOAS Group <span class="bcp14">SHOULD</span> be validated by at least one ROA, the data contained in a MOAS Group is still self-asserted by the group of AS holders. This means that the presence of an AS in the MOAS Group does not inherently imply any authority from the IP prefix holder for the AS to originate a route for any prefixes. Such authority is separately conveyed in the RPKI through a ROA.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
