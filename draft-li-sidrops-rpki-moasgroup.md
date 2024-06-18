@@ -108,8 +108,8 @@ RpkiSignedMoasGroup ::= SEQUENCE {
 ASID ::= INTEGER (1..4294967295)
 
 AddressFamilyIPAddress ::= SEQUENCE {
-  addressFamily ADDRESS-FAMILY.&afi ({AddressFamilySet}),
-  prefix        ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
+  addressFamily		ADDRESS-FAMILY.&afi ({AddressFamilySet}),
+  ipAddressPrefix	ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
 
 ADDRESS-FAMILY ::= CLASS {
   &afi          OCTET STRING (SIZE(2)) UNIQUE,
@@ -141,7 +141,7 @@ The version number of the RpkiSignedMoasGroup MUST be 0.
 
 This field contains the AS numbers that are authorized to originate routes to the given IP address prefixes. The AS numbers that ROA authorizes SHOULD be put in front of other AS numbers. The AS numbers MUST NOT duplicate.
 
-## prefix
+## ipAddressPrefix
 
 This field contains an AddressFamilyIPAddress which contains one instance of addressFamily and one instance of prefix.
 
