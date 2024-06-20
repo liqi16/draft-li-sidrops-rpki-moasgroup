@@ -102,7 +102,7 @@ id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
 RpkiSignedMoasGroup ::= SEQUENCE {
   version [0]		INTEGER DEFAULT 0,
   ipAddressPrefix	AddressFamilyIPAddress,
-  asList			SEQUENCE (SIZE(0..MAX)) OF ASID,
+  asList		SEQUENCE (SIZE(0..MAX)) OF ASID,
 }
 
 ASID ::= INTEGER (1..4294967295)
