@@ -4,8 +4,8 @@
 
 SIDR Operations                                                     LIQI
 Internet-Draft                                    Your Organization Here
-Intended status: Informational                              18 June 2024
-Expires: 20 December 2024
+Intended status: Informational                              20 June 2024
+Expires: 22 December 2024
 
 
 A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 December 2024.
+   This Internet-Draft will expire on 22 December 2024.
 
 Copyright Notice
 
@@ -193,9 +193,9 @@ id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
   pkcs-9(9) id-smime(16) id-ct(1) TBD }
 
 RpkiSignedMoasGroup ::= SEQUENCE {
-  version [0]   INTEGER DEFAULT 0,
+  version [0]           INTEGER DEFAULT 0,
   ipAddressPrefix       AddressFamilyIPAddress,
-  asList        SEQUENCE (SIZE(0..MAX)) OF ASID,
+  asList                        SEQUENCE (SIZE(0..MAX)) OF ASID,
 }
 
 ASID ::= INTEGER (1..4294967295)
