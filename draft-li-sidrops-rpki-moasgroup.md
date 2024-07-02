@@ -185,7 +185,7 @@ IANA is requested to allocate the following in the "SMI Security for S/MIME CMS 
 
 | Decimal | Description               | Reference   |
 | ------- | ------------------------- | ----------- |
-| TBD     | Id-ct-rpkiSignedMoasGroup | draft-li-sidrops-rpki-moasgroup-latest |
+| TBD     | Id-ct-rpkiSignedMoasGroup | draft-li-sidrops-rpki-moasgroup |
 
 ## RPKI Signed Objects
 
@@ -193,7 +193,7 @@ IANA is requested to register two OIDs in the "RPKI Signed Objects" registry {{R
 
 | Name | OID               | Reference   |
 | ------- | ------------------------- | ----------- |
-| Signed MoasGroup     | 1.2.840.113549.1.9.16.1.TBD | draft-li-sidrops-rpki-moasgroup-latest |
+| Signed MoasGroup     | 1.2.840.113549.1.9.16.1.TBD | draft-li-sidrops-rpki-moasgroup |
 
 ## RPKI Repository Name Schemes
 
@@ -201,14 +201,14 @@ IANA is requested to add the Signed MoasGroup file extension to the "RPKI Reposi
 
 | Filename Extension | RPKI Object               | Reference   |
 | ------- | ------------------------- | ----------- |
-| .smg     | Signed MoasGroup | draft-draft-li-sidrops-rpki-moasgroup-latest |
+| .smg     | Signed MoasGroup | draft-draft-li-sidrops-rpki-moasgroup |
 
 ## SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)
 IANA is requested to allocate the following in the "SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry:
 
 | Decimal | Description | Reference   |
 | ------- | ------------------------- | ----------- |
-| .TBD     | id-mod-rpkiSignedMoasGroup-2024 | draft-li-sidrops-rpki-moasgroup-latest |
+| .TBD     | id-mod-rpkiSignedMoasGroup-2024 | draft-li-sidrops-rpki-moasgroup |
 
 
 --- back
