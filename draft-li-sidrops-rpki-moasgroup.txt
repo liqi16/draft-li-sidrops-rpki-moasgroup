@@ -4,8 +4,8 @@
 
 SIDR Operations                                                     LIQI
 Internet-Draft                                    Your Organization Here
-Intended status: Informational                              20 June 2024
-Expires: 22 December 2024
+Intended status: Informational                               2 July 2024
+Expires: 3 January 2025
 
 
 A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 December 2024.
+   This Internet-Draft will expire on 3 January 2025.
 
 Copyright Notice
 
@@ -300,13 +300,6 @@ END
    participate in one MOAS Group for the same IP prefix.  If the AS List
    of a MOAS Group needs modification, it is highly RECOMMENDED to
    revoke the current MOAS Group and sign a new one.
-
-   The construction of an 'allowlist' for a given EBGP session using
-   MOAS Group(s) complements best practices [RFC7454] and rejecting
-   RPKI-invalid BGP route announcements [RFC6811].  In other words, if a
-   given BGP route is covered by an RPKI MOAS Group, but is also
-   "invalid" from a Route Origin Validation perspective, it is
-   RECOMMENDED to reject the route announcement.
 
 7.  Security Considerations
 
