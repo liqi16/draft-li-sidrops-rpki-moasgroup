@@ -170,7 +170,7 @@ The ASes in the AS List that are authorized by the ROA SHOULD be placed at the b
 
 Multiple valid MOAS Group objects can exist that contain the same IP prefix. However, it is highly RECOMMENDED that an AS SHOULD only participate in one MOAS Group for the same IP prefix. If the AS List of a MOAS Group needs modification, it is highly RECOMMENDED to revoke the current MOAS Group and sign a new one.
 
-The construction of an 'allowlist' for a given EBGP session using MOAS Group(s) complements best practices {{RFC7454}} and rejecting RPKI-invalid BGP route announcements {{RFC6811}}. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is RECOMMENDED to reject the route announcement.
+<!-- The construction of an 'allowlist' for a given EBGP session using MOAS Group(s) complements best practices {{RFC7454}} and rejecting RPKI-invalid BGP route announcements {{RFC6811}}. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is RECOMMENDED to reject the route announcement. -->
 
 # Security Considerations
 
