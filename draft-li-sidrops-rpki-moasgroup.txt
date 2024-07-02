@@ -318,12 +318,11 @@ END
    IANA is requested to allocate the following in the "SMI Security for
    S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
 
-      +=========+===========================+=======================+
-      | Decimal | Description               | Reference             |
-      +=========+===========================+=======================+
-      | TBD     | Id-ct-rpkiSignedMoasGroup | draft-li-sidrops-     |
-      |         |                           | rpki-moasgroup-latest |
-      +---------+---------------------------+-----------------------+
+    +=======+=========================+===============================+
+    |Decimal|Description              |Reference                      |
+    +=======+=========================+===============================+
+    |TBD    |Id-ct-rpkiSignedMoasGroup|draft-li-sidrops-rpki-moasgroup|
+    +-------+-------------------------+-------------------------------+
 
                                   Table 1
 
@@ -332,12 +331,12 @@ END
    IANA is requested to register two OIDs in the "RPKI Signed Objects"
    registry [RFC6488] as follows:
 
-    +===========+=============================+=======================+
-    | Name      | OID                         | Reference             |
-    +===========+=============================+=======================+
-    | Signed    | 1.2.840.113549.1.9.16.1.TBD | draft-li-sidrops-     |
-    | MoasGroup |                             | rpki-moasgroup-latest |
-    +-----------+-----------------------------+-----------------------+
+      +===========+=============================+===================+
+      | Name      | OID                         | Reference         |
+      +===========+=============================+===================+
+      | Signed    | 1.2.840.113549.1.9.16.1.TBD | draft-li-sidrops- |
+      | MoasGroup |                             | rpki-moasgroup    |
+      +-----------+-----------------------------+-------------------+
 
                                   Table 2
 
@@ -346,15 +345,15 @@ END
    IANA is requested to add the Signed MoasGroup file extension to the
    "RPKI Repository Name Schemes" registry [RFC6481] as follows:
 
-   +=========+=========+==============================================+
-   |Filename |RPKI     | Reference                                    |
-   |Extension|Object   |                                              |
-   +=========+=========+==============================================+
-   |.smg     |Signed   | draft-draft-li-sidrops-rpki-moasgroup-latest |
-   |         |MoasGroup|                                              |
-   +---------+---------+----------------------------------------------+
+     +===========+===========+=======================================+
+     | Filename  | RPKI      | Reference                             |
+     | Extension | Object    |                                       |
+     +===========+===========+=======================================+
+     | .smg      | Signed    | draft-draft-li-sidrops-rpki-moasgroup |
+     |           | MoasGroup |                                       |
+     +-----------+-----------+---------------------------------------+
 
-                                 Table 3
+                                  Table 3
 
 8.4.  SMI Security for S/MIME Module Identifier
       (1.2.840.113549.1.9.16.0)
@@ -362,12 +361,12 @@ END
    IANA is requested to allocate the following in the "SMI Security for
    S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry:
 
-   +=========+=================================+=======================+
-   | Decimal | Description                     | Reference             |
-   +=========+=================================+=======================+
-   | .TBD    | id-mod-rpkiSignedMoa            | draft-li-sidrops-     |
-   |         | sGroup-2024                     | rpki-moasgroup-latest |
-   +---------+---------------------------------+-----------------------+
+     +=========+=================================+===================+
+     | Decimal | Description                     | Reference         |
+     +=========+=================================+===================+
+     | .TBD    | id-mod-rpkiSignedMoasGroup-2024 | draft-li-sidrops- |
+     |         |                                 | rpki-moasgroup    |
+     +---------+---------------------------------+-------------------+
 
                                   Table 4
 
