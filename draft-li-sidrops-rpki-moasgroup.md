@@ -75,11 +75,11 @@ This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS
 
 This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) {{RFC5652}} {{RFC626}} protected content type to carry an IP prefix and a list of Autonomous Systems (ASes) authorized to announce this prefix. The Signed MOAS Group allows multiple ASes to collaboratively and securely announce an IP prefix, supporting scenarios such as business partnerships, traffic engineering, and DDoS protection services.
 
-The Signed MOAS Group consists of two components: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix, which allows other RPKI-validating routing entities to audit the collection of announcements from multiple originating AS. At least one ASes in the AS list SHOULD be authorized to announce the prefix by the prefix owner through a corresponding ROA, which means the IP prefix in the ROA MUST match the IP prefix in the Signed MOAS Group and the ASN in the ROA MUST appear in the AS list. The content is collectively signed by the listed ASes using a multi-signature technique, and the aggregated global signature is attached to the Signed MOAS Group object, ensuring that the announcement could be legitimately proposed by all participating ASes and is verifiable by any RPKI-validating remote routing entities.
+A Signed MOAS Group object consists of two components: an IP prefix and a list of Autonomous Systems (ASes) intended to announce the prefix collaboratively, which allows other RPKI-validating routing entities to audit the collection of announcements from multiple originating AS. At least one AS in the AS list SHOULD be authorized to announce the prefix by the prefix owner through a corresponding ROA, which means the IP prefix in the ROA SHOULD match the IP prefix in the Signed MOAS Group and the ASN in the ROA SHOULD appear in the AS list. The object is collectively signed by the listed ASes using a multi-signature technique, and the aggregated global signature is attached to the Signed MOAS Group object, ensuring that the announcement could be legitimately proposed by all participating ASes and is verifiable by any RPKI-validating remote routing entities.
 
-To validate a MoasGroup object, a relying party (RP) aggregates the public keys of all ASes in the AS list into a global public key, which is subsequently used to verify the multi-signature of the Signed MOAS Group object. There are three possible validation outcomes. First, if the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid. Second, if the Signed MOAS Group is verified but no corresponding ROA is found, it is deemed suspicious. Lastly, if the Signed MOAS Group cannot be verified, it is considered invalid.
+To validate a Signed MoasGroup object, a relying party (RP) aggregates the public keys of all ASes in the AS list into a global public key, which is subsequently used to verify the multi-signature of the Signed MOAS Group object. There are three possible validation outcomes. First, if the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid. Second, if the Signed MOAS Group is verified but no corresponding ROA is found, it is deemed suspicious. Lastly, if the Signed MOAS Group cannot be verified, it is considered invalid.
 
-The Signed MOAS Group provides a mechanism for securely managing multi-origin AS announcements, offering a robust and flexible solution to handle modern routing requirements. Any prefixes announced by ASes that are not included in an ROA or a validated Signed MOAS Group SHOULD be regarded as suspicious, though their handling is subject to local routing policies. The intent is to offer a secure and authenticated method for managing MOAS scenarios, enhancing the overall security and integrity of the routing system.
+The Signed MOAS Group provides a mechanism for securely managing multi-origin AS announcements, offering a robust and flexible solution to handle modern routing requirements. Any prefixes announced by ASes that are not included in a ROA or a validated Signed MOAS Group SHOULD be regarded as invalid, though their handling is subject to local routing policies. The intent is to offer a secure and authenticated method for managing MOAS scenarios, enhancing the overall security and integrity of the routing system.
 
 Signed MOAS Group objects follow the Signed Object Template for the RPKI {{RFC6488}}.
 
@@ -161,7 +161,7 @@ The version number of the RpkiSignedMoasGroup MUST be 0.
 
 ## asList
 
-This field contains the AS numbers that are authorized to originate routes to the given IP address prefixes. The AS numbers that ROA authorizes SHOULD be put in front of other AS numbers. The AS numbers MUST NOT duplicate.
+This field contains the AS numbers that are intended to originate routes to the given IP address prefixes. The AS numbers that ROA authorizes SHOULD be put in front of other AS numbers. The AS numbers MUST NOT duplicate.
 
 ## ipAddressPrefix
 
@@ -180,17 +180,17 @@ This field contains a BIT STRING, its length bounded through the addressFamily f
 To validate a MoasGroup, the relying party MUST perform all the validation checks specified in {{RFC6488}}. In addition, the RP MUST perform the following validation steps:
 
 1. The contents of the CMS eContent field MUST conform to all of the constraints described in Section 3.
-2. The RP MUST verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is subsequently used to verify the global signature of the Signed MOAS Group object.
-3. The RP SHOULD check for the existence of a corresponding ROA for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA MUST match the IP prefix in the Signed MOAS Group, and the ASN in the ROA MUST appear in the AS list.
-4. A Signed MOAS Group has three possible validation outcomes. (1) Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid. (2) Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the MOAS Group is considered suspicious. (3) Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.
+2. The RP MUST verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is subsequently used to verify the global signature attached to the Signed MOAS Group object.
+3. The RP MUST check for the existence of a corresponding ROA for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA MUST match the IP prefix in the Signed MOAS Group, and the ASN in the ROA MUST appear in the AS list.
+4. A Signed MOAS Group has three possible validation outcomes. (1) Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, the MOAS Group is considered valid. (2) Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the Signed MOAS Group is considered suspicious. (3) Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.
 
 # Operational Considerations
 
-To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group MUST use BLS Signatures {{I-D.draft-irtf-cfrg-bls-signature-05}}. This ensures that the signatures can be efficiently combined into a single global signature.
+To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group MUST use BLS Signatures with BLS12-381 elliptic curve {{I-D.draft-ietf-cose-bls-key-representations-05}}. This ensures that the signatures can be efficiently combined into a single global signature.
 
 The ASes in the AS List that are authorized by the ROA SHOULD be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly RECOMMENDED that the RP only verifies whether the first AS and the prefix can be validated by the ROA.
 
-Multiple valid MOAS Group objects can exist that contain the same IP prefix. However, it is highly RECOMMENDED that an AS SHOULD only participate in one MOAS Group for the same IP prefix. If the AS List of a MOAS Group needs modification, it is highly RECOMMENDED to revoke the current MOAS Group and sign a new one.
+Multiple valid Signed MOAS Group objects can exist that contain the same IP prefix. However, it is highly RECOMMENDED that an AS SHOULD only participate in one MOAS Group for the same IP prefix. If the AS List of a MOAS Group needs modification, it is highly RECOMMENDED to revoke the current Signed MOAS Group and sign a new one.
 
 <!-- The construction of an 'allowlist' for a given EBGP session using MOAS Group(s) complements best practices {{RFC7454}} and rejecting RPKI-invalid BGP route announcements {{RFC6811}}. In other words, if a given BGP route is covered by an RPKI MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is RECOMMENDED to reject the route announcement. -->
 
