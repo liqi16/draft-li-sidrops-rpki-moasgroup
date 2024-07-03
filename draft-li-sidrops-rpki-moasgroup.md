@@ -244,4 +244,4 @@ IANA is requested to allocate the following in the "SMI Security for S/MIME Modu
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The authors would like to thank Shenglin Jiang, Yangfei Guo, Xingang Shi, Shuhe Wang, Xiaoliang Wang, and Hui Wang.
