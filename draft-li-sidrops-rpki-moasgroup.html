@@ -9,17 +9,16 @@
 <meta content="Ke Xu" name="author">
 <meta content="Zhuotao Liu" name="author">
 <meta content="Qi Li" name="author">
-<meta content="Jianping Wu" name="author">
 <meta content='
        This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes  SHOULD  be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and consensually authorized. 
     ' name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="xml2rfc 3.22.0" name="generator">
 <meta content="next generation" name="keyword">
 <meta content="unicorn" name="keyword">
 <meta content="sparkling distributed ledger" name="keyword">
 <meta content="draft-li-sidrops-rpki-moasgroup-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
+  xml2rfc 3.22.0
     Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -29,9 +28,8 @@
     platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
+    requests 2.32.3
     setuptools 69.5.1
-    six 1.16.0
     wcwidth 0.2.13
 -->
 <link href="draft-li-sidrops-rpki-moasgroup.xml" rel="alternate" type="application/rfc+xml">
@@ -1072,10 +1070,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <div class="author-name">Q. Li</div>
 <div class="org">Tsinghua University</div>
 </div>
-<div class="author">
-      <div class="author-name">J. Wu</div>
-<div class="org">Tsinghua University</div>
-</div>
 </dd>
 </dl>
 </div>
@@ -1603,16 +1597,6 @@ END
 <div class="email">
 <span>Email:</span>
 <a href="mailto:qli01@tsinghua.edu.cn" class="email">qli01@tsinghua.edu.cn</a>
-</div>
-</address>
-<address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Jianping Wu</span></div>
-<div dir="auto" class="left"><span class="org">Tsinghua University</span></div>
-<div dir="auto" class="left"><span class="locality">Beijing</span></div>
-<div dir="auto" class="left"><span class="country-name">China</span></div>
-<div class="email">
-<span>Email:</span>
-<a href="mailto:jianping@cernet.edu.cn" class="email">jianping@cernet.edu.cn</a>
 </div>
 </address>
 </section>

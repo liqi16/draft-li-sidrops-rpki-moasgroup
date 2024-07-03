@@ -7,7 +7,6 @@ Internet-Draft                                   Zhongguancun Laboratory
 Intended status: Informational                                     K. Xu
 Expires: 4 January 2025                                           Z. Liu
                                                                    Q. Li
-                                                                   J. Wu
                                                      Tsinghua University
                                                              3 July 2024
 
@@ -458,10 +457,3 @@ Authors' Addresses
    Beijing
    China
    Email: qli01@tsinghua.edu.cn
-
-
-   Jianping Wu
-   Tsinghua University
-   Beijing
-   China
-   Email: jianping@cernet.edu.cn
