@@ -24,8 +24,6 @@ venue:
   latest: "https://liqi16.github.io/draft-li-sidrops-rpki-moasgroup/draft-li-sidrops-rpki-moasgroup.html"
 
 author:
- -
-author:
   -
     fullname: "Qi Li"
     organization: Zhongguancun Laboratory
@@ -88,13 +86,13 @@ Signed MOAS Group objects follow the Signed Object Template for the RPKI {{RFC64
 
 {::boilerplate bcp14-tagged}
 
-# MoasGroup eContentType
+# Signed MoasGroup eContentType
 
 The eContentType for a MoasGroup is defined as id-ct-rpkiSignedMoasGroup, with Object Identifier (OID) 1.2.840.113549.1.9.16.1.TBD.
 
 This OID MUST appear within both the eContentType in the encapContentInfo object and the ContentType signed attribute in the signerInfo object (see {{RFC6488}}).
 
-# MoasGroup eContent
+# Signed MoasGroup eContent
 
 The content of a MoasGroup is a single IP prefix and a list of ASes. A MoasGroup is formally defined as follows:
 
@@ -175,7 +173,7 @@ This field contains an OCTET STRING which is either '0001'H (IPv4) or '0002'H (I
 
 This field contains a BIT STRING, its length bounded through the addressFamily field. The type is a BIT STRING, see Section 2.2.3.8 of {{RFC3779}} for more information.
 
-# MoasGroup Validation
+# Signed MoasGroup Validation
 
 To validate a MoasGroup, the relying party MUST perform all the validation checks specified in {{RFC6488}}. In addition, the RP MUST perform the following validation steps:
 
