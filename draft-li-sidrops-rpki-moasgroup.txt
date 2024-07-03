@@ -427,7 +427,8 @@ END
 
 Acknowledgments
 
-   TODO acknowledge.
+   The authors would like to thank Shenglin Jiang, Yangfei Guo, Xingang
+   Shi, Shuhe Wang, Xiaoliang Wang, and Hui Wang.
 
 Authors' Addresses
 
