@@ -134,10 +134,10 @@ Table of Contents
    public key, which is subsequently used to verify the multi-signature
    of the Signed MOAS Group object.  There are three possible validation
    outcomes.  First, if the Signed MOAS Group is verified and at least
-   one corresponding ROA is found, the MOAS Group is considered valid.
-   Second, if the Signed MOAS Group is verified but no corresponding ROA
-   is found, it is deemed suspicious.  Lastly, if the Signed MOAS Group
-   cannot be verified, it is considered invalid.
+   one corresponding ROA is found, it is considered valid.  Second, if
+   the Signed MOAS Group is verified but no corresponding ROA is found,
+   it is deemed suspicious.  Lastly, if the Signed MOAS Group cannot be
+   verified, it is considered invalid.
 
    The Signed MOAS Group provides a mechanism for securely managing
    multi-origin AS announcements, offering a robust and flexible
@@ -278,8 +278,8 @@ END
 
    4.  A Signed MOAS Group has three possible validation outcomes. (1)
        Valid: If the Signed MOAS Group is verified and at least one
-       corresponding ROA is found, the MOAS Group is considered valid.
-       (2) Suspicious: If the Signed MOAS Group is verified but no
+       corresponding ROA is found, it is considered valid. (2)
+       Suspicious: If the Signed MOAS Group is verified but no
        corresponding ROA is found, the Signed MOAS Group is considered
        suspicious. (3) Invalid: If the Signed MOAS Group cannot be
        verified, it is considered invalid.
@@ -301,19 +301,20 @@ END
 
    Multiple valid Signed MOAS Group objects can exist that contain the
    same IP prefix.  However, it is highly RECOMMENDED that an AS only
-   participate in one MOAS Group for the same IP prefix.  If the AS List
-   of a MOAS Group needs modification, it is highly RECOMMENDED to
-   revoke the current Signed MOAS Group and sign a new one.
+   participate in one Signed MOAS Group for the same IP prefix.  If the
+   AS List of a Signed MOAS Group needs modification, it is highly
+   RECOMMENDED to revoke the current Signed MOAS Group and sign a new
+   one.
 
 7.  Security Considerations
 
    Despite it is highly RECOMMENDED that a Signed MOAS Group SHOULD be
-   validated by at least one ROA, the data contained in a MOAS Group is
-   still self-asserted by the group of AS holders.  This means that the
-   presence of an AS in the MOAS Group does not inherently imply any
-   authority from the IP prefix holder for the AS to originate a route
-   for any prefixes.  Such authority is separately conveyed in the RPKI
-   through a ROA.
+   validated by at least one ROA, the data contained in a Signed MOAS
+   Group is still self-asserted by the group of AS holders.  This means
+   that the presence of an AS in the Signed MOAS Group does not
+   inherently imply any authority from the IP prefix holder for the AS
+   to originate a route for any prefixes.  Such authority is separately
+   conveyed in the RPKI through a ROA.
 
 8.  IANA Considerations
 
