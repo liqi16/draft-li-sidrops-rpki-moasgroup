@@ -300,9 +300,9 @@ END
    ROA.
 
    Multiple valid Signed MOAS Group objects can exist that contain the
-   same IP prefix.  However, it is highly RECOMMENDED that an AS SHOULD
-   only participate in one MOAS Group for the same IP prefix.  If the AS
-   List of a MOAS Group needs modification, it is highly RECOMMENDED to
+   same IP prefix.  However, it is highly RECOMMENDED that an AS only
+   participate in one MOAS Group for the same IP prefix.  If the AS List
+   of a MOAS Group needs modification, it is highly RECOMMENDED to
    revoke the current Signed MOAS Group and sign a new one.
 
 7.  Security Considerations
