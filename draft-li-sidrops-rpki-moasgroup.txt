@@ -83,14 +83,14 @@ Table of Contents
 
    1.  Introduction
    2.  Requirements Language
-   3.  MoasGroup eContentType
-   4.  MoasGroup eContent
+   3.  Signed MoasGroup eContentType
+   4.  Signed MoasGroup eContent
      4.1.  Version
      4.2.  asList
      4.3.  ipAddressPrefix
        4.3.1.  addressFamily
        4.3.2.  prefix
-   5.  MoasGroup Validation
+   5.  Signed MoasGroup Validation
    6.  Operational Considerations
    7.  Security Considerations
    8.  IANA Considerations
@@ -159,7 +159,7 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  MoasGroup eContentType
+3.  Signed MoasGroup eContentType
 
    The eContentType for a MoasGroup is defined as id-ct-
    rpkiSignedMoasGroup, with Object Identifier (OID)
@@ -169,7 +169,7 @@ Table of Contents
    encapContentInfo object and the ContentType signed attribute in the
    signerInfo object (see [RFC6488]).
 
-4.  MoasGroup eContent
+4.  Signed MoasGroup eContent
 
    The content of a MoasGroup is a single IP prefix and a list of ASes.
    A MoasGroup is formally defined as follows:
@@ -256,7 +256,7 @@ END
    addressFamily field.  The type is a BIT STRING, see Section 2.2.3.8
    of [RFC3779] for more information.
 
-5.  MoasGroup Validation
+5.  Signed MoasGroup Validation
 
    To validate a MoasGroup, the relying party MUST perform all the
    validation checks specified in [RFC6488].  In addition, the RP MUST
