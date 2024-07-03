@@ -1244,7 +1244,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3-2">This OID <span class="bcp14">MUST</span> appear within both the eContentType in the encapContentInfo object and the ContentType signed attribute in the signerInfo object (see <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>).<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="signed-moasgroup-econtent">
+<div id="sec_econtent">
 <section id="section-4">
       <h2 id="name-signed-moasgroup-econtent">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-signed-moasgroup-econtent" class="section-name selfRef">Signed MoasGroup eContent</a>
@@ -1343,7 +1343,7 @@ END
           <h4 id="name-prefix">
 <a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-prefix" class="section-name selfRef">prefix</a>
           </h4>
-<p id="section-4.3.2-1">This field contains a BIT STRING, its length bounded through the addressFamily field. The type is a BIT STRING, see Section 2.2.3.8 of <span>[<a href="#RFC3779" class="cite xref">RFC3779</a>]</span> for more information.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-1">This field contains a BIT STRING, its length bounded through the addressFamily field. The type is a BIT STRING, see <span><a href="https://rfc-editor.org/rfc/rfc3779#section-2.2.3.8" class="relref">Section 2.2.3.8</a> of [<a href="#RFC3779" class="cite xref">RFC3779</a>]</span> for more information.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1358,7 +1358,7 @@ END
 <p id="section-5-1">To validate a MoasGroup, the relying party <span class="bcp14">MUST</span> perform all the validation checks specified in <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>. In addition, the RP <span class="bcp14">MUST</span> perform the following validation steps:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5-2">
 <li id="section-5-2.1">
-          <p id="section-5-2.1.1">The contents of the CMS eContent field <span class="bcp14">MUST</span> conform to all of the constraints described in Section 3.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.1.1">The contents of the CMS eContent field <span class="bcp14">MUST</span> conform to all of the constraints described in Section <a href="#sec_econtent" class="auto internal xref">Section 4</a>.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-5-2.2">
           <p id="section-5-2.2.1">The RP <span class="bcp14">MUST</span> verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is subsequently used to verify the global signature attached to the Signed MOAS Group object.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>

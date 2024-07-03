@@ -263,7 +263,7 @@ END
    perform the following validation steps:
 
    1.  The contents of the CMS eContent field MUST conform to all of the
-       constraints described in Section 3.
+       constraints described in Section Section 4.
 
    2.  The RP MUST verify the signatures of the Signed MOAS Group.  This
        involves aggregating the public keys of all ASes listed in the AS
