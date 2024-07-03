@@ -59,7 +59,7 @@ normative:
   RFC6811:
   RFC7454:
   RFC6481:
-  I-D.draft-irtf-cfrg-bls-signature-05:
+  I-D.draft-ietf-cose-bls-key-representations-05:
 
 informative:
 
