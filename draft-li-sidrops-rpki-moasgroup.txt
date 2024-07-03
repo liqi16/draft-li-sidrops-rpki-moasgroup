@@ -121,12 +121,13 @@ Table of Contents
    originating AS.  At least one AS in the AS list SHOULD be authorized
    to announce the prefix by the prefix owner through a corresponding
    ROA, which means the IP prefix in the ROA SHOULD match the IP prefix
-   in the Signed MOAS Group and the ASN in the ROA SHOULD appear in the
-   AS list.  The object is collectively signed by the listed ASes using
-   a multi-signature technique, and the aggregated global signature is
-   attached to the Signed MOAS Group object, ensuring that the
-   announcement could be legitimately proposed by all participating ASes
-   and is verifiable by any RPKI-validating remote routing entities.
+   in the Signed MOAS Group and the AS number in the ROA SHOULD appear
+   in the AS list.  The object is collectively signed by the listed ASes
+   using a multi-signature technique, and the aggregated global
+   signature is attached to the Signed MOAS Group object, ensuring that
+   the announcement could be legitimately proposed by all participating
+   ASes and is verifiable by any RPKI-validating remote routing
+   entities.
 
    To validate a Signed MoasGroup object, a relying party (RP)
    aggregates the public keys of all ASes in the AS list into a global
@@ -235,8 +236,8 @@ END
 4.2.  asList
 
    This field contains the AS numbers that are intended to originate
-   routes to the given IP address prefixes.  The AS numbers that ROA
-   authorizes SHOULD be put in front of other AS numbers.  The AS
+   routes to the given IP address prefixes.  The AS numbers that are
+   authorized by ROA SHOULD be put in front of other AS numbers.  The AS
    numbers MUST NOT duplicate.
 
 4.3.  ipAddressPrefix
@@ -272,8 +273,8 @@ END
 
    3.  The RP MUST check for the existence of a corresponding ROA for
        the IP prefix in the Signed MOAS Group.  The IP prefix in the ROA
-       MUST match the IP prefix in the Signed MOAS Group, and the ASN in
-       the ROA MUST appear in the AS list.
+       MUST match the IP prefix in the Signed MOAS Group, and the AS
+       number in the ROA MUST appear in the AS list.
 
    4.  A Signed MOAS Group has three possible validation outcomes. (1)
        Valid: If the Signed MOAS Group is verified and at least one
@@ -348,15 +349,15 @@ END
    IANA is requested to add the Signed MoasGroup file extension to the
    "RPKI Repository Name Schemes" registry [RFC6481] as follows:
 
-     +===========+===========+=======================================+
-     | Filename  | RPKI      | Reference                             |
-     | Extension | Object    |                                       |
-     +===========+===========+=======================================+
-     | .smg      | Signed    | draft-draft-li-sidrops-rpki-moasgroup |
-     |           | MoasGroup |                                       |
-     +-----------+-----------+---------------------------------------+
+   +====================+===========+=================================+
+   | Filename Extension | RPKI      | Reference                       |
+   |                    | Object    |                                 |
+   +====================+===========+=================================+
+   | .smg               | Signed    | draft-li-sidrops-rpki-moasgroup |
+   |                    | MoasGroup |                                 |
+   +--------------------+-----------+---------------------------------+
 
-                                  Table 3
+                                 Table 3
 
 8.4.  SMI Security for S/MIME Module Identifier
       (1.2.840.113549.1.9.16.0)
