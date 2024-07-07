@@ -5,10 +5,11 @@
 SIDR Operations                                                    Q. Li
 Internet-Draft                                   Zhongguancun Laboratory
 Intended status: Informational                                     K. Xu
-Expires: 4 January 2025                                           Z. Liu
+Expires: 8 January 2025                                           Z. Liu
                                                                    Q. Li
+                                                                   J. Wu
                                                      Tsinghua University
-                                                             3 July 2024
+                                                             7 July 2024
 
 
 A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
@@ -63,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 January 2025.
+   This Internet-Draft will expire on 8 January 2025.
 
 Copyright Notice
 
@@ -430,7 +431,7 @@ END
 Acknowledgments
 
    The authors would like to thank Shenglin Jiang, Yangfei Guo, Xingang
-   Shi, Shuhe Wang, Xiaoliang Wang, and Hui Wang.
+   Shi, Shuhe Wang, Xiaoliang Wang, Hui Wang, and Di Ma.
 
 Authors' Addresses
 
@@ -460,3 +461,10 @@ Authors' Addresses
    Beijing
    China
    Email: qli01@tsinghua.edu.cn
+
+
+   Jianping Wu
+   Tsinghua University
+   Beijing
+   China
+   Email: jianping@cernet.edu.cn
