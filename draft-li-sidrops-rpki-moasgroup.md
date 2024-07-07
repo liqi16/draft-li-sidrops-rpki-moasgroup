@@ -48,6 +48,12 @@ author:
     city: Beijing
     country: China
     email: qli01@tsinghua.edu.cn
+  -
+    fullname: Jianping Wu
+    org: Tsinghua University
+    city: Beijing
+    country: China
+    email: jianping@cernet.edu.cn
 
 normative:
   RFC5652:
@@ -236,4 +242,4 @@ IANA is requested to allocate the following in the "SMI Security for S/MIME Modu
 # Acknowledgments
 {:numbered="false"}
 
-The authors would like to thank Shenglin Jiang, Yangfei Guo, Xingang Shi, Shuhe Wang, Xiaoliang Wang, and Hui Wang.
+The authors would like to thank Shenglin Jiang, Yangfei Guo, Xingang Shi, Shuhe Wang, Xiaoliang Wang, Hui Wang, and Di Ma.
