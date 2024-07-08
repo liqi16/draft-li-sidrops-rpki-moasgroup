@@ -1,7 +1,7 @@
 ---
 title: "A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use in the Resource Public Key Infrastructure (RPKI)"
 abbrev: "rpki-moasgroup"
-category: info
+category: std
 
 docname: draft-li-sidrops-rpki-moasgroup-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -11,7 +11,7 @@ consensus: true
 v: 3
 area: "Operations and Management"
 workgroup: "SIDR Operations"
-keyword:
+<!--keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
@@ -21,7 +21,7 @@ venue:
   mail: "sidrops@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/sidrops/"
   github: "liqi16/draft-li-sidrops-rpki-moasgroup"
-  latest: "https://liqi16.github.io/draft-li-sidrops-rpki-moasgroup/draft-li-sidrops-rpki-moasgroup.html"
+  latest: "https://liqi16.github.io/draft-li-sidrops-rpki-moasgroup/draft-li-sidrops-rpki-moasgroup.html"-->
 
 author:
   -
