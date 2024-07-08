@@ -4,12 +4,12 @@
 
 SIDR Operations                                                    Q. Li
 Internet-Draft                                   Zhongguancun Laboratory
-Intended status: Informational                                     K. Xu
-Expires: 8 January 2025                                           Z. Liu
+Intended status: Standards Track                                   K. Xu
+Expires: 9 January 2025                                           Z. Liu
                                                                    Q. Li
                                                                    J. Wu
                                                      Tsinghua University
-                                                             7 July 2024
+                                                             8 July 2024
 
 
 A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
@@ -31,24 +31,6 @@ Abstract
    prefix, ensuring that the announcement is legitimate, accurate, and
    consensually authorized.
 
-About This Document
-
-   This note is to be removed before publishing as an RFC.
-
-   The latest revision of this draft can be found at
-   https://liqi16.github.io/draft-li-sidrops-rpki-moasgroup/draft-li-
-   sidrops-rpki-moasgroup.html.  Status information for this document
-   may be found at https://datatracker.ietf.org/doc/draft-li-sidrops-
-   rpki-moasgroup/.
-
-   Discussion of this document takes place on the SIDR Operations
-   Working Group mailing list (mailto:sidrops@ietf.org), which is
-   archived at https://mailarchive.ietf.org/arch/browse/sidrops/.
-   Subscribe at https://www.ietf.org/mailman/listinfo/sidrops/.
-
-   Source for this draft and an issue tracker can be found at
-   https://github.com/liqi16/draft-li-sidrops-rpki-moasgroup.
-
 Status of This Memo
 
    This Internet-Draft is submitted in full conformance with the
@@ -64,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2025.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
