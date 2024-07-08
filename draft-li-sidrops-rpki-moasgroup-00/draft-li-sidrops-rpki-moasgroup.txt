@@ -1,0 +1,452 @@
+
+
+
+
+SIDR Operations                                                    Q. Li
+Internet-Draft                                   Zhongguancun Laboratory
+Intended status: Standards Track                                   K. Xu
+Expires: 9 January 2025                                           Z. Liu
+                                                                   Q. Li
+                                                                   J. Wu
+                                                     Tsinghua University
+                                                             8 July 2024
+
+
+A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
+            in the Resource Public Key Infrastructure (RPKI)
+                 draft-li-sidrops-rpki-moasgroup-latest
+
+Abstract
+
+   This document defines a "Signed MOAS Group", a Cryptographic Message
+   Syntax (CMS) protected content type for use with the Resource Public
+   Key Infrastructure (RPKI) to authenticate the collective announcement
+   of IP prefixes by Multiple Origin Autonomous System (MOAS).  The
+   Signed MOAS Group includes two parts: an IP prefix and a list of
+   Autonomous Systems (ASes) authorized to announce the prefix.  At
+   least one of these ASes SHOULD be authorized to announce the prefix
+   by the prefix owner through a Route Origin Authorization (ROA).  The
+   validation of a Signed MOAS Group confirms that the authorized ASes
+   and other listed ASes have collectively agreed to announce the
+   prefix, ensuring that the announcement is legitimate, accurate, and
+   consensually authorized.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 9 January 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Requirements Language
+   3.  Signed MoasGroup eContentType
+   4.  Signed MoasGroup eContent
+     4.1.  Version
+     4.2.  asList
+     4.3.  ipAddressPrefix
+       4.3.1.  addressFamily
+       4.3.2.  prefix
+   5.  Signed MoasGroup Validation
+   6.  Operational Considerations
+   7.  Security Considerations
+   8.  IANA Considerations
+     8.1.  SMI Security for S/MIME CMS Content Type
+           (1.2.840.113549.1.9.16.1)
+     8.2.  RPKI Signed Objects
+     8.3.  RPKI Repository Name Schemes
+     8.4.  SMI Security for S/MIME Module Identifier
+           (1.2.840.113549.1.9.16.0)
+   9.  Normative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   This document defines a "Signed MOAS Group", a Cryptographic Message
+   Syntax (CMS) [RFC5652] [RFC626] protected content type to carry an IP
+   prefix and a list of Autonomous Systems (ASes) authorized to announce
+   this prefix.  The Signed MOAS Group allows multiple ASes to
+   collaboratively and securely announce an IP prefix, supporting
+   scenarios such as business partnerships, traffic engineering, and
+   DDoS protection services.
+
+   A Signed MOAS Group object consists of two components: an IP prefix
+   and a list of Autonomous Systems (ASes) intended to announce the
+   prefix collaboratively, which allows other RPKI-validating routing
+   entities to audit the collection of announcements from multiple
+   originating AS.  At least one AS in the AS list SHOULD be authorized
+   to announce the prefix by the prefix owner through a corresponding
+   ROA, which means the IP prefix in the ROA SHOULD match the IP prefix
+   in the Signed MOAS Group and the AS number in the ROA SHOULD appear
+   in the AS list.  The object is collectively signed by the listed ASes
+   using a multi-signature technique, and the aggregated global
+   signature is attached to the Signed MOAS Group object, ensuring that
+   the announcement could be legitimately proposed by all participating
+   ASes and is verifiable by any RPKI-validating remote routing
+   entities.
+
+   To validate a Signed MoasGroup object, a relying party (RP)
+   aggregates the public keys of all ASes in the AS list into a global
+   public key, which is subsequently used to verify the multi-signature
+   of the Signed MOAS Group object.  There are three possible validation
+   outcomes.  First, if the Signed MOAS Group is verified and at least
+   one corresponding ROA is found, it is considered valid.  Second, if
+   the Signed MOAS Group is verified but no corresponding ROA is found,
+   it is deemed suspicious.  Lastly, if the Signed MOAS Group cannot be
+   verified, it is considered invalid.
+
+   The Signed MOAS Group provides a mechanism for securely managing
+   multi-origin AS announcements, offering a robust and flexible
+   solution to handle modern routing requirements.  Any prefixes
+   announced by ASes that are not included in a ROA or a validated
+   Signed MOAS Group SHOULD be regarded as invalid, though their
+   handling is subject to local routing policies.  The intent is to
+   offer a secure and authenticated method for managing MOAS scenarios,
+   enhancing the overall security and integrity of the routing system.
+
+   Signed MOAS Group objects follow the Signed Object Template for the
+   RPKI [RFC6488].
+
+2.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Signed MoasGroup eContentType
+
+   The eContentType for a MoasGroup is defined as id-ct-
+   rpkiSignedMoasGroup, with Object Identifier (OID)
+   1.2.840.113549.1.9.16.1.TBD.
+
+   This OID MUST appear within both the eContentType in the
+   encapContentInfo object and the ContentType signed attribute in the
+   signerInfo object (see [RFC6488]).
+
+4.  Signed MoasGroup eContent
+
+   The content of a MoasGroup is a single IP prefix and a list of ASes.
+   A MoasGroup is formally defined as follows:
+
+RpkiSignedMoasGroup-2024
+  { iso(1) member-body(2) us(840) rsadsi(113549)
+   pkcs(1) pkcs9(9) smime(16) mod(0)
+   id-mod-rpkiSignedMoasGroup-2024(TBD) }
+
+   DEFINITIONS EXPLICIT TAGS ::=
+BEGIN
+
+IMPORTS
+CONTENT-TYPE
+FROM CryptographicMessageSyntax-2010 -- in [RFC6268]
+  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+    pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) };
+
+ct-rpkiSignedMoasGroup CONTENT-TYPE ::=
+{ TYPE RpkiSignedMoasGroup
+  IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
+
+id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
+{ iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+  pkcs-9(9) id-smime(16) id-ct(1) TBD }
+
+RpkiSignedMoasGroup ::= SEQUENCE {
+  version [0]           INTEGER DEFAULT 0,
+  ipAddressPrefix       AddressFamilyIPAddress,
+  asList                SEQUENCE (SIZE(0..MAX)) OF ASID,
+}
+
+ASID ::= INTEGER (1..4294967295)
+
+AddressFamilyIPAddress ::= SEQUENCE {
+  addressFamily         ADDRESS-FAMILY.&afi ({AddressFamilySet}),
+  prefix        ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
+
+ADDRESS-FAMILY ::= CLASS {
+  &afi          OCTET STRING (SIZE(2)) UNIQUE,
+  &Prefix
+} WITH SYNTAX { AFI &afi PREFIX-TYPE &Prefix }
+
+AddressFamilySet ADDRESS-FAMILY ::= { addressFamilyIPv4 | addressFamilyIPv6 }
+
+addressFamilyIPv4 ADDRESS-FAMILY ::= { AFI afi-IPv4 PREFIX-TYPE AddressesIPv4 }
+addressFamilyIPv6 ADDRESS-FAMILY ::= { AFI afi-IPv6 PREFIX-TYPE AddressesIPv6 }
+
+afi-IPv4 OCTET STRING ::= '0001'H
+afi-IPv6 OCTET STRING ::= '0002'H
+
+AddressesIPv4 ::= Prefix{32}
+AddressesIPv6 ::= Prefix{128}
+
+Prefix {INTEGER: len} ::= SEQUENCE {
+  address       BIT STRING (SIZE(0..len)) }
+
+END
+
+4.1.  Version
+
+   The version number of the RpkiSignedMoasGroup MUST be 0.
+
+4.2.  asList
+
+   This field contains the AS numbers that are intended to originate
+   routes to the given IP address prefixes.  The AS numbers that are
+   authorized by ROA SHOULD be put in front of other AS numbers.  The AS
+   numbers MUST NOT duplicate.
+
+4.3.  ipAddressPrefix
+
+   This field contains an AddressFamilyIPAddress which contains one
+   instance of addressFamily and one instance of prefix.
+
+4.3.1.  addressFamily
+
+   This field contains an OCTET STRING which is either '0001'H (IPv4) or
+   '0002'H (IPv6).
+
+4.3.2.  prefix
+
+   This field contains a BIT STRING, its length bounded through the
+   addressFamily field.  The type is a BIT STRING, see Section 2.2.3.8
+   of [RFC3779] for more information.
+
+5.  Signed MoasGroup Validation
+
+   To validate a MoasGroup, the relying party MUST perform all the
+   validation checks specified in [RFC6488].  In addition, the RP MUST
+   perform the following validation steps:
+
+   1.  The contents of the CMS eContent field MUST conform to all of the
+       constraints described in Section Section 4.
+
+   2.  The RP MUST verify the signatures of the Signed MOAS Group.  This
+       involves aggregating the public keys of all ASes listed in the AS
+       list into a global public key.  The aggregated global public key
+       is subsequently used to verify the global signature attached to
+       the Signed MOAS Group object.
+
+   3.  The RP MUST check for the existence of a corresponding ROA for
+       the IP prefix in the Signed MOAS Group.  The IP prefix in the ROA
+       MUST match the IP prefix in the Signed MOAS Group, and the AS
+       number in the ROA MUST appear in the AS list.
+
+   4.  A Signed MOAS Group has three possible validation outcomes. (1)
+       Valid: If the Signed MOAS Group is verified and at least one
+       corresponding ROA is found, it is considered valid. (2)
+       Suspicious: If the Signed MOAS Group is verified but no
+       corresponding ROA is found, the Signed MOAS Group is considered
+       suspicious. (3) Invalid: If the Signed MOAS Group cannot be
+       verified, it is considered invalid.
+
+6.  Operational Considerations
+
+   To aggregate the signatures of all ASes in the AS list, the Signed
+   MOAS Group MUST use BLS Signatures with BLS12-381 elliptic curve
+   [I-D.draft-ietf-cose-bls-key-representations-05].  This ensures that
+   the signatures can be efficiently combined into a single global
+   signature.
+
+   The ASes in the AS List that are authorized by the ROA SHOULD be
+   placed at the beginning of the AS list, ahead of any non-authorized
+   ASes.  This ordering can improve the efficiency of the RP's
+   validation process.  It is highly RECOMMENDED that the RP only
+   verifies whether the first AS and the prefix can be validated by the
+   ROA.
+
+   Multiple valid Signed MOAS Group objects can exist that contain the
+   same IP prefix.  However, it is highly RECOMMENDED that an AS only
+   participate in one Signed MOAS Group for the same IP prefix.  If the
+   AS List of a Signed MOAS Group needs modification, it is highly
+   RECOMMENDED to revoke the current Signed MOAS Group and sign a new
+   one.
+
+7.  Security Considerations
+
+   Despite it is highly RECOMMENDED that a Signed MOAS Group SHOULD be
+   validated by at least one ROA, the data contained in a Signed MOAS
+   Group is still self-asserted by the group of AS holders.  This means
+   that the presence of an AS in the Signed MOAS Group does not
+   inherently imply any authority from the IP prefix holder for the AS
+   to originate a route for any prefixes.  Such authority is separately
+   conveyed in the RPKI through a ROA.
+
+8.  IANA Considerations
+
+8.1.  SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)
+
+   IANA is requested to allocate the following in the "SMI Security for
+   S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
+
+    +=======+=========================+===============================+
+    |Decimal|Description              |Reference                      |
+    +=======+=========================+===============================+
+    |TBD    |Id-ct-rpkiSignedMoasGroup|draft-li-sidrops-rpki-moasgroup|
+    +-------+-------------------------+-------------------------------+
+
+                                  Table 1
+
+8.2.  RPKI Signed Objects
+
+   IANA is requested to register two OIDs in the "RPKI Signed Objects"
+   registry [RFC6488] as follows:
+
+      +===========+=============================+===================+
+      | Name      | OID                         | Reference         |
+      +===========+=============================+===================+
+      | Signed    | 1.2.840.113549.1.9.16.1.TBD | draft-li-sidrops- |
+      | MoasGroup |                             | rpki-moasgroup    |
+      +-----------+-----------------------------+-------------------+
+
+                                  Table 2
+
+8.3.  RPKI Repository Name Schemes
+
+   IANA is requested to add the Signed MoasGroup file extension to the
+   "RPKI Repository Name Schemes" registry [RFC6481] as follows:
+
+   +====================+===========+=================================+
+   | Filename Extension | RPKI      | Reference                       |
+   |                    | Object    |                                 |
+   +====================+===========+=================================+
+   | .smg               | Signed    | draft-li-sidrops-rpki-moasgroup |
+   |                    | MoasGroup |                                 |
+   +--------------------+-----------+---------------------------------+
+
+                                 Table 3
+
+8.4.  SMI Security for S/MIME Module Identifier
+      (1.2.840.113549.1.9.16.0)
+
+   IANA is requested to allocate the following in the "SMI Security for
+   S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry:
+
+     +=========+=================================+===================+
+     | Decimal | Description                     | Reference         |
+     +=========+=================================+===================+
+     | .TBD    | id-mod-rpkiSignedMoasGroup-2024 | draft-li-sidrops- |
+     |         |                                 | rpki-moasgroup    |
+     +---------+---------------------------------+-------------------+
+
+                                  Table 4
+
+9.  Normative References
+
+   [I-D.draft-ietf-cose-bls-key-representations-05]
+              Looker, T. and M. B. Jones, "Barreto-Lynn-Scott Elliptic
+              Curve Key Representations for JOSE and COSE", Work in
+              Progress, Internet-Draft, draft-ietf-cose-bls-key-
+              representations-05, 17 March 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
+              bls-key-representations-05>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC3779]  Lynn, C., Kent, S., and K. Seo, "X.509 Extensions for IP
+              Addresses and AS Identifiers", RFC 3779,
+              DOI 10.17487/RFC3779, June 2004,
+              <https://www.rfc-editor.org/rfc/rfc3779>.
+
+   [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
+              RFC 5652, DOI 10.17487/RFC5652, September 2009,
+              <https://www.rfc-editor.org/rfc/rfc5652>.
+
+   [RFC626]   Kleinrock, L. and H. Opderbeck, "On a possible lockup
+              condition in IMP subnet due to message sequencing",
+              RFC 626, DOI 10.17487/RFC0626, March 1974,
+              <https://www.rfc-editor.org/rfc/rfc626>.
+
+   [RFC6481]  Huston, G., Loomans, R., and G. Michaelson, "A Profile for
+              Resource Certificate Repository Structure", RFC 6481,
+              DOI 10.17487/RFC6481, February 2012,
+              <https://www.rfc-editor.org/rfc/rfc6481>.
+
+   [RFC6488]  Lepinski, M., Chi, A., and S. Kent, "Signed Object
+              Template for the Resource Public Key Infrastructure
+              (RPKI)", RFC 6488, DOI 10.17487/RFC6488, February 2012,
+              <https://www.rfc-editor.org/rfc/rfc6488>.
+
+   [RFC6811]  Mohapatra, P., Scudder, J., Ward, D., Bush, R., and R.
+              Austein, "BGP Prefix Origin Validation", RFC 6811,
+              DOI 10.17487/RFC6811, January 2013,
+              <https://www.rfc-editor.org/rfc/rfc6811>.
+
+   [RFC7454]  Durand, J., Pepelnjak, I., and G. Doering, "BGP Operations
+              and Security", BCP 194, RFC 7454, DOI 10.17487/RFC7454,
+              February 2015, <https://www.rfc-editor.org/rfc/rfc7454>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Acknowledgments
+
+   The authors would like to thank Shenglin Jiang, Yangfei Guo, Xingang
+   Shi, Shuhe Wang, Xiaoliang Wang, Hui Wang, and Di Ma.
+
+Authors' Addresses
+
+   Qi Li
+   Zhongguancun Laboratory
+   Beijing
+   China
+   Email: liq23@zgclab.edu.cn
+
+
+   Ke Xu
+   Tsinghua University
+   Beijing
+   China
+   Email: xuke@tsinghua.edu.cn
+
+
+   Zhuotao Liu
+   Tsinghua University
+   Beijing
+   China
+   Email: zhuotaoliu@tsinghua.edu.cn
+
+
+   Qi Li
+   Tsinghua University
+   Beijing
+   China
+   Email: qli01@tsinghua.edu.cn
+
+
+   Jianping Wu
+   Tsinghua University
+   Beijing
+   China
+   Email: jianping@cernet.edu.cn
