@@ -5,11 +5,11 @@
 SIDR Operations                                                    Q. Li
 Internet-Draft                                   Zhongguancun Laboratory
 Intended status: Standards Track                                   K. Xu
-Expires: 9 January 2025                                           Z. Liu
+Expires: 12 April 2025                                            Z. Liu
                                                                    Q. Li
                                                                    J. Wu
                                                      Tsinghua University
-                                                             8 July 2024
+                                                          9 October 2024
 
 
 A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 January 2025.
+   This Internet-Draft will expire on 12 April 2025.
 
 Copyright Notice
 
@@ -68,11 +68,12 @@ Table of Contents
    2.  Requirements Language
    3.  Signed MoasGroup eContentType
    4.  Signed MoasGroup eContent
-     4.1.  Version
-     4.2.  asList
-     4.3.  ipAddressPrefix
-       4.3.1.  addressFamily
-       4.3.2.  prefix
+     4.1.  version
+     4.2.  ipAddressPrefix
+     4.3.  asList
+       4.3.1.  digestAlgorithm
+       4.3.2.  messageDigest
+       4.3.3.  attestation
    5.  Signed MoasGroup Validation
    6.  Operational Considerations
    7.  Security Considerations
@@ -157,87 +158,83 @@ Table of Contents
    The content of a MoasGroup is a single IP prefix and a list of ASes.
    A MoasGroup is formally defined as follows:
 
-RpkiSignedMoasGroup-2024
-  { iso(1) member-body(2) us(840) rsadsi(113549)
-   pkcs(1) pkcs9(9) smime(16) mod(0)
-   id-mod-rpkiSignedMoasGroup-2024(TBD) }
+   RpkiSignedMoasGroup-2024
+     { iso(1) member-body(2) us(840) rsadsi(113549)
+      pkcs(1) pkcs9(9) smime(16) mod(0)
+      id-mod-rpkiSignedMoasGroup-2024(TBD) }
 
-   DEFINITIONS EXPLICIT TAGS ::=
-BEGIN
+      DEFINITIONS EXPLICIT TAGS ::=
+   BEGIN
 
-IMPORTS
-CONTENT-TYPE
-FROM CryptographicMessageSyntax-2010 -- in [RFC6268]
-  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-    pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) };
+   IMPORTS
+     CONTENT-TYPE, DigestAlgorithmIdentifier, Digest
+     FROM CryptographicMessageSyntax-2009 -- in {{RFC5911}}
+     { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+      pkcs-9(9) smime(16) modules(0) id-mod-cms-2004-02(41) }
 
-ct-rpkiSignedMoasGroup CONTENT-TYPE ::=
-{ TYPE RpkiSignedMoasGroup
-  IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
+     ASId, IPAddressFamily
+     FROM IPAddrAndASCertExtn -- in {{RFC3779}}
+     { iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) mod(0)
+      id-mod-ip-addr-and-as-ident(30) }
 
-id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
-{ iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-  pkcs-9(9) id-smime(16) id-ct(1) TBD }
 
-RpkiSignedMoasGroup ::= SEQUENCE {
-  version [0]           INTEGER DEFAULT 0,
-  ipAddressPrefix       AddressFamilyIPAddress,
-  asList                SEQUENCE (SIZE(0..MAX)) OF ASID,
-}
+     ct-rpkiSignedMoasGroup CONTENT-TYPE ::=
+     { TYPE RpkiSignedMoasGroup
+      IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
 
-ASID ::= INTEGER (1..4294967295)
+     id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
+     { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+      pkcs-9(9) id-smime(16) id-ct(1) TBD }
 
-AddressFamilyIPAddress ::= SEQUENCE {
-  addressFamily         ADDRESS-FAMILY.&afi ({AddressFamilySet}),
-  prefix        ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
+     RpkiSignedMoasGroup ::= SEQUENCE {
+      smgo SignedMoasGroupObject,
+      digestAlgorithm DigestAlgorithmIdentifier,
+      objectDigest Digest
+     }
 
-ADDRESS-FAMILY ::= CLASS {
-  &afi          OCTET STRING (SIZE(2)) UNIQUE,
-  &Prefix
-} WITH SYNTAX { AFI &afi PREFIX-TYPE &Prefix }
+     SignedMoasGroupObject ::= SEQUENCE {
+      version [0]          INTEGER DEFAULT 0,
+      ipAddressPrefix      IPAddressFamily,
+      asList               SEQUENCE (SIZE(0..MAX)) OF ASId,
+     }
 
-AddressFamilySet ADDRESS-FAMILY ::= { addressFamilyIPv4 | addressFamilyIPv6 }
+   END
 
-addressFamilyIPv4 ADDRESS-FAMILY ::= { AFI afi-IPv4 PREFIX-TYPE AddressesIPv4 }
-addressFamilyIPv6 ADDRESS-FAMILY ::= { AFI afi-IPv6 PREFIX-TYPE AddressesIPv6 }
-
-afi-IPv4 OCTET STRING ::= '0001'H
-afi-IPv6 OCTET STRING ::= '0002'H
-
-AddressesIPv4 ::= Prefix{32}
-AddressesIPv6 ::= Prefix{128}
-
-Prefix {INTEGER: len} ::= SEQUENCE {
-  address       BIT STRING (SIZE(0..len)) }
-
-END
-
-4.1.  Version
+4.1.  version
 
    The version number of the RpkiSignedMoasGroup MUST be 0.
 
-4.2.  asList
+4.2.  ipAddressPrefix
+
+   This field contains an IPAddressFamily which contains one instance of
+   addressFamily and one instance of prefix.
+
+4.3.  asList
 
    This field contains the AS numbers that are intended to originate
    routes to the given IP address prefixes.  The AS numbers that are
    authorized by ROA SHOULD be put in front of other AS numbers.  The AS
    numbers MUST NOT duplicate.
 
-4.3.  ipAddressPrefix
+4.3.1.  digestAlgorithm
 
-   This field contains an AddressFamilyIPAddress which contains one
-   instance of addressFamily and one instance of prefix.
+   The digest algorithm used to create the message digest of the
+   attested digital object.  This algorithm MUST be a hashing algorithm
+   defined in [RFC7935].
 
-4.3.1.  addressFamily
+4.3.2.  messageDigest
 
-   This field contains an OCTET STRING which is either '0001'H (IPv4) or
-   '0002'H (IPv6).
+   The message digest of the SignedMoasGroupObject using the algorithm
+   specified in the digestAlgorithm field.
 
-4.3.2.  prefix
+4.3.3.  attestation
 
-   This field contains a BIT STRING, its length bounded through the
-   addressFamily field.  The type is a BIT STRING, see Section 2.2.3.8
-   of [RFC3779] for more information.
+   The attestation is a CMS detached signature in the SignedData format
+   as defined in [RFC5485].  Each AS listed in the asList signs an
+   individual digital signature of the message digest, and one AS
+   aggregates all individual signatures into a global signature,
+   referred to as the attestation.
 
 5.  Signed MoasGroup Validation
 
@@ -378,9 +375,18 @@ END
               DOI 10.17487/RFC3779, June 2004,
               <https://www.rfc-editor.org/rfc/rfc3779>.
 
+   [RFC5485]  Housley, R., "Digital Signatures on Internet-Draft
+              Documents", RFC 5485, DOI 10.17487/RFC5485, March 2009,
+              <https://www.rfc-editor.org/rfc/rfc5485>.
+
    [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
               <https://www.rfc-editor.org/rfc/rfc5652>.
+
+   [RFC5911]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for
+              Cryptographic Message Syntax (CMS) and S/MIME", RFC 5911,
+              DOI 10.17487/RFC5911, June 2010,
+              <https://www.rfc-editor.org/rfc/rfc5911>.
 
    [RFC626]   Kleinrock, L. and H. Opderbeck, "On a possible lockup
               condition in IMP subnet due to message sequencing",
@@ -406,6 +412,11 @@ END
               and Security", BCP 194, RFC 7454, DOI 10.17487/RFC7454,
               February 2015, <https://www.rfc-editor.org/rfc/rfc7454>.
 
+   [RFC7935]  Huston, G. and G. Michaelson, Ed., "The Profile for
+              Algorithms and Key Sizes for Use in the Resource Public
+              Key Infrastructure", RFC 7935, DOI 10.17487/RFC7935,
+              August 2016, <https://www.rfc-editor.org/rfc/rfc7935>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
@@ -421,7 +432,7 @@ Authors' Addresses
    Zhongguancun Laboratory
    Beijing
    China
-   Email: liq23@zgclab.edu.cn
+   Email: liq23@mail.zgclab.edu.cn
 
 
    Ke Xu
