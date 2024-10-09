@@ -152,15 +152,15 @@ This field contains an IPAddressFamily which contains one instance of addressFam
 
 This field contains the AS numbers that are intended to originate routes to the given IP address prefixes. The AS numbers that are authorized by ROA SHOULD be put in front of other AS numbers. The AS numbers MUST NOT duplicate.
 
-### digestAlgorithm
+## digestAlgorithm
 
 The digest algorithm used to create the message digest of the attested digital object.  This algorithm MUST be a hashing algorithm defined in {{RFC7935}}.
 
-### messageDigest
+## messageDigest
 
 The message digest of the SignedMoasGroupObject using the algorithm specified in the digestAlgorithm field.
 
-### attestation
+## attestation
 
 The attestation is a CMS detached signature in the SignedData format as defined in {{RFC5485}}. Each AS listed in the asList signs an individual digital signature of the message digest, and one AS aggregates all individual signatures into a global signature, referred to as the attestation.
 
