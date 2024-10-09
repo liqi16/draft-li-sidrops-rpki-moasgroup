@@ -74,17 +74,18 @@ Table of Contents
        4.3.1.  digestAlgorithm
        4.3.2.  messageDigest
        4.3.3.  attestation
-   5.  Signed MoasGroup Validation
-   6.  Operational Considerations
-   7.  Security Considerations
-   8.  IANA Considerations
-     8.1.  SMI Security for S/MIME CMS Content Type
+   5.  Signed MoasGroup Issuance
+   6.  Signed MoasGroup Validation
+   7.  Operational Considerations
+   8.  Security Considerations
+   9.  IANA Considerations
+     9.1.  SMI Security for S/MIME CMS Content Type
            (1.2.840.113549.1.9.16.1)
-     8.2.  RPKI Signed Objects
-     8.3.  RPKI Repository Name Schemes
-     8.4.  SMI Security for S/MIME Module Identifier
+     9.2.  RPKI Signed Objects
+     9.3.  RPKI Repository Name Schemes
+     9.4.  SMI Security for S/MIME Module Identifier
            (1.2.840.113549.1.9.16.0)
-   9.  Normative References
+   10. Normative References
    Acknowledgments
    Authors' Addresses
 
@@ -123,7 +124,7 @@ Table of Contents
    it is deemed suspicious.  Lastly, if the Signed MOAS Group cannot be
    verified, it is considered invalid.
 
-   The Signed MOAS Group provides a mechanism for securely managing
+   The Signed MOAS Group provides a technical way for securely managing
    multi-origin AS announcements, offering a robust and flexible
    solution to handle modern routing requirements.  Any prefixes
    announced by ASes that are not included in a ROA or a validated
@@ -236,7 +237,23 @@ Table of Contents
    aggregates all individual signatures into a global signature,
    referred to as the attestation.
 
-5.  Signed MoasGroup Validation
+5.  Signed MoasGroup Issuance
+
+   The process of issuing a Signed MOAS Group begins with the prefix
+   owner authorizing a prefix to an AS (referred to as the authorized
+   AS) via a ROA.  The authorized AS then initiates the creation of the
+   Signed MOAS Group object, selects a digest algorithm, and calculates
+   the digest of the Signed MOAS Group object.  This Signed MOAS Group
+   object is shared with other ASes listed in the object.  Each listed
+   AS signs the Signed MOAS Group digest using its private key and
+   returns the signature to the authorized AS.  Upon receiving and
+   verifying all individual signatures, the authorized AS aggregates
+   them into a global signature, which is attached to the Signed MOAS
+   Group object.  Finally, the prefix owner or the authorized AS MAY
+   verify the Signed MOAS Group and upload it to the RPKI repositories
+   for validation and distribution.
+
+6.  Signed MoasGroup Validation
 
    To validate a MoasGroup, the relying party MUST perform all the
    validation checks specified in [RFC6488].  In addition, the RP MUST
@@ -264,7 +281,7 @@ Table of Contents
        suspicious. (3) Invalid: If the Signed MOAS Group cannot be
        verified, it is considered invalid.
 
-6.  Operational Considerations
+7.  Operational Considerations
 
    To aggregate the signatures of all ASes in the AS list, the Signed
    MOAS Group MUST use BLS Signatures with BLS12-381 elliptic curve
@@ -286,7 +303,7 @@ Table of Contents
    RECOMMENDED to revoke the current Signed MOAS Group and sign a new
    one.
 
-7.  Security Considerations
+8.  Security Considerations
 
    Despite it is highly RECOMMENDED that a Signed MOAS Group SHOULD be
    validated by at least one ROA, the data contained in a Signed MOAS
@@ -296,9 +313,9 @@ Table of Contents
    to originate a route for any prefixes.  Such authority is separately
    conveyed in the RPKI through a ROA.
 
-8.  IANA Considerations
+9.  IANA Considerations
 
-8.1.  SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)
+9.1.  SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)
 
    IANA is requested to allocate the following in the "SMI Security for
    S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
@@ -311,7 +328,7 @@ Table of Contents
 
                                   Table 1
 
-8.2.  RPKI Signed Objects
+9.2.  RPKI Signed Objects
 
    IANA is requested to register two OIDs in the "RPKI Signed Objects"
    registry [RFC6488] as follows:
@@ -325,7 +342,7 @@ Table of Contents
 
                                   Table 2
 
-8.3.  RPKI Repository Name Schemes
+9.3.  RPKI Repository Name Schemes
 
    IANA is requested to add the Signed MoasGroup file extension to the
    "RPKI Repository Name Schemes" registry [RFC6481] as follows:
@@ -340,7 +357,7 @@ Table of Contents
 
                                  Table 3
 
-8.4.  SMI Security for S/MIME Module Identifier
+9.4.  SMI Security for S/MIME Module Identifier
       (1.2.840.113549.1.9.16.0)
 
    IANA is requested to allocate the following in the "SMI Security for
@@ -355,7 +372,7 @@ Table of Contents
 
                                   Table 4
 
-9.  Normative References
+10.  Normative References
 
    [I-D.draft-ietf-cose-bls-key-representations-05]
               Looker, T. and M. B. Jones, "Barreto-Lynn-Scott Elliptic
