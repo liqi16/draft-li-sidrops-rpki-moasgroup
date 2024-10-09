@@ -1251,12 +1251,12 @@ BEGIN
 
 IMPORTS
   CONTENT-TYPE, DigestAlgorithmIdentifier, Digest
-  FROM CryptographicMessageSyntax-2009 -- in {{RFC5911}}
+  FROM CryptographicMessageSyntax-2009 -- in [RFC5911]
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
    pkcs-9(9) smime(16) modules(0) id-mod-cms-2004-02(41) }
 
   ASId, IPAddressFamily
-  FROM IPAddrAndASCertExtn -- in {{RFC3779}}
+  FROM IPAddrAndASCertExtn -- in [RFC3779]
   { iso(1) identified-organization(3) dod(6) internet(1)
    security(5) mechanisms(5) pkix(7) mod(0)
    id-mod-ip-addr-and-as-ident(30) }
@@ -1343,7 +1343,7 @@ END
 <p id="section-5-1">To validate a MoasGroup, the relying party <span class="bcp14">MUST</span> perform all the validation checks specified in <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>. In addition, the RP <span class="bcp14">MUST</span> perform the following validation steps:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5-2">
 <li id="section-5-2.1">
-          <p id="section-5-2.1.1">The contents of the CMS eContent field <span class="bcp14">MUST</span> conform to all of the constraints described in Section <a href="#sec_econtent" class="auto internal xref">Section 4</a>.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.1.1">The contents of the CMS eContent field <span class="bcp14">MUST</span> conform to all of the constraints described in <a href="#sec_econtent" class="auto internal xref">Section 4</a>.<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-5-2.2">
           <p id="section-5-2.2.1">The RP <span class="bcp14">MUST</span> verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is subsequently used to verify the global signature attached to the Signed MOAS Group object.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
