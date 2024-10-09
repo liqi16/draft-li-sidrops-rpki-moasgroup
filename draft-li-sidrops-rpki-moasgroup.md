@@ -18,7 +18,7 @@ author:
     organization: Zhongguancun Laboratory
     city: Beijing
     country: China
-    email: "liq23@zgclab.edu.cn"
+    email: "liq23@mail.zgclab.edu.cn"
   -
     fullname: Ke Xu
     org: Tsinghua University
@@ -52,6 +52,10 @@ normative:
   RFC6811:
   RFC7454:
   RFC6481:
+  RFC7935:
+  RFC5911:
+  RFC3779:
+  RFC5485:
   I-D.draft-ietf-cose-bls-key-representations-05:
 
 informative:
@@ -101,72 +105,64 @@ RpkiSignedMoasGroup-2024
 BEGIN
 
 IMPORTS
-CONTENT-TYPE
-FROM CryptographicMessageSyntax-2010 -- in [RFC6268]
+  CONTENT-TYPE, DigestAlgorithmIdentifier, Digest
+  FROM CryptographicMessageSyntax-2009 -- in {{RFC5911}}
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-    pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) };
+   pkcs-9(9) smime(16) modules(0) id-mod-cms-2004-02(41) }
+   
+  ASId, IPAddressFamily
+  FROM IPAddrAndASCertExtn -- in {{RFC3779}}
+  { iso(1) identified-organization(3) dod(6) internet(1)
+   security(5) mechanisms(5) pkix(7) mod(0)
+   id-mod-ip-addr-and-as-ident(30) }
+		
+	
+  ct-rpkiSignedMoasGroup CONTENT-TYPE ::=
+  { TYPE RpkiSignedMoasGroup
+   IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
 
-ct-rpkiSignedMoasGroup CONTENT-TYPE ::=
-{ TYPE RpkiSignedMoasGroup
-  IDENTIFIED BY id-ct-rpkiSignedMoasGroup }
+  id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
+  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+   pkcs-9(9) id-smime(16) id-ct(1) TBD }
 
-id-ct-rpkiSignedMoasGroup OBJECT IDENTIFIER ::=
-{ iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-  pkcs-9(9) id-smime(16) id-ct(1) TBD }
+  RpkiSignedMoasGroup ::= SEQUENCE {
+   smgo SignedMoasGroupObject,
+   digestAlgorithm DigestAlgorithmIdentifier,
+   objectDigest Digest
+  }
 
-RpkiSignedMoasGroup ::= SEQUENCE {
-  version [0]		INTEGER DEFAULT 0,
-  ipAddressPrefix	AddressFamilyIPAddress,
-  asList		SEQUENCE (SIZE(0..MAX)) OF ASID,
-}
-
-ASID ::= INTEGER (1..4294967295)
-
-AddressFamilyIPAddress ::= SEQUENCE {
-  addressFamily		ADDRESS-FAMILY.&afi ({AddressFamilySet}),
-  prefix	ADDRESS-FAMILY.&Prefix ({AddressFamilySet}{@addressFamily}) }
-
-ADDRESS-FAMILY ::= CLASS {
-  &afi          OCTET STRING (SIZE(2)) UNIQUE,
-  &Prefix
-} WITH SYNTAX { AFI &afi PREFIX-TYPE &Prefix }
-
-AddressFamilySet ADDRESS-FAMILY ::= { addressFamilyIPv4 | addressFamilyIPv6 }
-
-addressFamilyIPv4 ADDRESS-FAMILY ::= { AFI afi-IPv4 PREFIX-TYPE AddressesIPv4 }
-addressFamilyIPv6 ADDRESS-FAMILY ::= { AFI afi-IPv6 PREFIX-TYPE AddressesIPv6 }
-
-afi-IPv4 OCTET STRING ::= '0001'H
-afi-IPv6 OCTET STRING ::= '0002'H
-
-AddressesIPv4 ::= Prefix{32}
-AddressesIPv6 ::= Prefix{128}
-
-Prefix {INTEGER: len} ::= SEQUENCE {
-  address       BIT STRING (SIZE(0..len)) }
+  SignedMoasGroupObject ::= SEQUENCE {
+   version [0]		INTEGER DEFAULT 0,
+   ipAddressPrefix	IPAddressFamily,
+   asList		SEQUENCE (SIZE(0..MAX)) OF ASId,
+  }
 
 END
 ~~~
 
-## Version
+## version
 
 The version number of the RpkiSignedMoasGroup MUST be 0.
+
+## ipAddressPrefix
+
+This field contains an IPAddressFamily which contains one instance of addressFamily and one instance of prefix.
 
 ## asList
 
 This field contains the AS numbers that are intended to originate routes to the given IP address prefixes. The AS numbers that are authorized by ROA SHOULD be put in front of other AS numbers. The AS numbers MUST NOT duplicate.
 
-## ipAddressPrefix
+### digestAlgorithm
 
-This field contains an AddressFamilyIPAddress which contains one instance of addressFamily and one instance of prefix.
+The digest algorithm used to create the message digest of the attested digital object.  This algorithm MUST be a hashing algorithm defined in {{RFC7935}}.
 
-### addressFamily
+### messageDigest
 
-This field contains an OCTET STRING which is either '0001'H (IPv4) or '0002'H (IPv6).
+The message digest of the SignedMoasGroupObject using the algorithm specified in the digestAlgorithm field.
 
-### prefix
+### attestation 
 
-This field contains a BIT STRING, its length bounded through the addressFamily field. The type is a BIT STRING, see {{Section 2.2.3.8 of RFC3779}} for more information.
+The attestation is a CMS detached signature in the SignedData format as defined in {{RFC5485}}. Each AS listed in the asList signs an individual digital signature of the message digest, and one AS aggregates all individual signatures into a global signature, referred to as the attestation.
 
 # Signed MoasGroup Validation
 
@@ -184,8 +180,6 @@ To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group MU
 The ASes in the AS List that are authorized by the ROA SHOULD be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly RECOMMENDED that the RP only verifies whether the first AS and the prefix can be validated by the ROA.
 
 Multiple valid Signed MOAS Group objects can exist that contain the same IP prefix. However, it is highly RECOMMENDED that an AS only participate in one Signed MOAS Group for the same IP prefix. If the AS List of a Signed MOAS Group needs modification, it is highly RECOMMENDED to revoke the current Signed MOAS Group and sign a new one.
-
-<!-- The construction of an 'allowlist' for a given EBGP session using Signed MOAS Group(s) complements best practices {{RFC7454}} and rejecting RPKI-invalid BGP route announcements {{RFC6811}}. In other words, if a given BGP route is covered by an RPKI Signed MOAS Group, but is also "invalid" from a Route Origin Validation perspective, it is RECOMMENDED to reject the route announcement. -->
 
 # Security Considerations
 
