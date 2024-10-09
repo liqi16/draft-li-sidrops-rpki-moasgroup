@@ -109,7 +109,7 @@ IMPORTS
   FROM CryptographicMessageSyntax-2009 -- in {{RFC5911}}
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
    pkcs-9(9) smime(16) modules(0) id-mod-cms-2004-02(41) }
-   
+
   ASId, IPAddressFamily
   FROM IPAddrAndASCertExtn -- in {{RFC3779}}
   { iso(1) identified-organization(3) dod(6) internet(1)
@@ -160,7 +160,7 @@ The digest algorithm used to create the message digest of the attested digital o
 
 The message digest of the SignedMoasGroupObject using the algorithm specified in the digestAlgorithm field.
 
-### attestation 
+### attestation
 
 The attestation is a CMS detached signature in the SignedData format as defined in {{RFC5485}}. Each AS listed in the asList signs an individual digital signature of the message digest, and one AS aggregates all individual signatures into a global signature, referred to as the attestation.
 
