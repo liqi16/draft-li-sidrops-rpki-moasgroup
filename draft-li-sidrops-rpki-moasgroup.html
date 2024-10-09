@@ -1148,17 +1148,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-aslist" class="internal xref">asList</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.1">
-                    <p id="section-toc.1-1.4.2.3.2.1.1"><a href="#section-4.3.1" class="auto internal xref">4.3.1</a>.  <a href="#name-digestalgorithm" class="internal xref">digestAlgorithm</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.2">
-                    <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="auto internal xref">4.3.2</a>.  <a href="#name-messagedigest" class="internal xref">messageDigest</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-digestalgorithm" class="internal xref">digestAlgorithm</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.3">
-                    <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="auto internal xref">4.3.3</a>.  <a href="#name-attestation" class="internal xref">attestation</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="auto internal xref">4.5</a>.  <a href="#name-messagedigest" class="internal xref">messageDigest</a></p>
 </li>
-                </ul>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.6">
+                <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="auto internal xref">4.6</a>.  <a href="#name-attestation" class="internal xref">attestation</a></p>
 </li>
             </ul>
 </li>
@@ -1310,30 +1308,30 @@ END
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-aslist" class="section-name selfRef">asList</a>
         </h3>
 <p id="section-4.3-1">This field contains the AS numbers that are intended to originate routes to the given IP address prefixes. The AS numbers that are authorized by ROA <span class="bcp14">SHOULD</span> be put in front of other AS numbers. The AS numbers <span class="bcp14">MUST NOT</span> duplicate.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 <div id="digestalgorithm">
-<section id="section-4.3.1">
-          <h4 id="name-digestalgorithm">
-<a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-digestalgorithm" class="section-name selfRef">digestAlgorithm</a>
-          </h4>
-<p id="section-4.3.1-1">The digest algorithm used to create the message digest of the attested digital object.  This algorithm <span class="bcp14">MUST</span> be a hashing algorithm defined in <span>[<a href="#RFC7935" class="cite xref">RFC7935</a>]</span>.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<section id="section-4.4">
+        <h3 id="name-digestalgorithm">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-digestalgorithm" class="section-name selfRef">digestAlgorithm</a>
+        </h3>
+<p id="section-4.4-1">The digest algorithm used to create the message digest of the attested digital object.  This algorithm <span class="bcp14">MUST</span> be a hashing algorithm defined in <span>[<a href="#RFC7935" class="cite xref">RFC7935</a>]</span>.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="messagedigest">
-<section id="section-4.3.2">
-          <h4 id="name-messagedigest">
-<a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-messagedigest" class="section-name selfRef">messageDigest</a>
-          </h4>
-<p id="section-4.3.2-1">The message digest of the SignedMoasGroupObject using the algorithm specified in the digestAlgorithm field.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
+<section id="section-4.5">
+        <h3 id="name-messagedigest">
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-messagedigest" class="section-name selfRef">messageDigest</a>
+        </h3>
+<p id="section-4.5-1">The message digest of the SignedMoasGroupObject using the algorithm specified in the digestAlgorithm field.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="attestation">
-<section id="section-4.3.3">
-          <h4 id="name-attestation">
-<a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-attestation" class="section-name selfRef">attestation</a>
-          </h4>
-<p id="section-4.3.3-1">The attestation is a CMS detached signature in the SignedData format as defined in <span>[<a href="#RFC5485" class="cite xref">RFC5485</a>]</span>. Each AS listed in the asList signs an individual digital signature of the message digest, and one AS aggregates all individual signatures into a global signature, referred to as the attestation.<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
-</section>
-</div>
+<section id="section-4.6">
+        <h3 id="name-attestation">
+<a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-attestation" class="section-name selfRef">attestation</a>
+        </h3>
+<p id="section-4.6-1">The attestation is a CMS detached signature in the SignedData format as defined in <span>[<a href="#RFC5485" class="cite xref">RFC5485</a>]</span>. Each AS listed in the asList signs an individual digital signature of the message digest, and one AS aggregates all individual signatures into a global signature, referred to as the attestation.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
