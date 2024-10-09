@@ -14,7 +14,7 @@ workgroup: "SIDR Operations"
 
 author:
   -
-    fullname: "Qi Li"
+    fullname: Qi Li
     organization: Zhongguancun Laboratory
     city: Beijing
     country: China
