@@ -106,12 +106,12 @@ BEGIN
 
 IMPORTS
   CONTENT-TYPE, DigestAlgorithmIdentifier, Digest
-  FROM CryptographicMessageSyntax-2009 -- in {{RFC5911}}
+  FROM CryptographicMessageSyntax-2009 -- in [RFC5911]
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
    pkcs-9(9) smime(16) modules(0) id-mod-cms-2004-02(41) }
 
   ASId, IPAddressFamily
-  FROM IPAddrAndASCertExtn -- in {{RFC3779}}
+  FROM IPAddrAndASCertExtn -- in [RFC3779]
   { iso(1) identified-organization(3) dod(6) internet(1)
    security(5) mechanisms(5) pkix(7) mod(0)
    id-mod-ip-addr-and-as-ident(30) }
@@ -168,7 +168,7 @@ The attestation is a CMS detached signature in the SignedData format as defined 
 
 To validate a MoasGroup, the relying party MUST perform all the validation checks specified in {{RFC6488}}. In addition, the RP MUST perform the following validation steps:
 
-1. The contents of the CMS eContent field MUST conform to all of the constraints described in Section {{sec_econtent}}.
+1. The contents of the CMS eContent field MUST conform to all of the constraints described in {{sec_econtent}}.
 2. The RP MUST verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is subsequently used to verify the global signature attached to the Signed MOAS Group object.
 3. The RP MUST check for the existence of a corresponding ROA for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA MUST match the IP prefix in the Signed MOAS Group, and the AS number in the ROA MUST appear in the AS list.
 4. A Signed MOAS Group has three possible validation outcomes. (1) Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, it is considered valid. (2) Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the Signed MOAS Group is considered suspicious. (3) Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.
