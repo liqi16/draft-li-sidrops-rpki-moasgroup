@@ -11,7 +11,7 @@
 <meta content="Qi Li" name="author">
 <meta content="Jianping Wu" name="author">
 <meta content='
-       This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes  SHOULD  be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and consensually authorized. 
+       This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group mainly includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes  SHOULD  be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and mutually authorized. 
     ' name="description">
 <meta content="xml2rfc 3.23.2" name="generator">
 <meta content="draft-li-sidrops-rpki-moasgroup-latest" name="ietf.draft">
@@ -1031,7 +1031,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Li, et al.</td>
-<td class="center">Expires 12 April 2025</td>
+<td class="center">Expires 13 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1044,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-li-sidrops-rpki-moasgroup-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-09" class="published">9 October 2024</time>
+<time datetime="2024-10-10" class="published">10 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-12">12 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-13">13 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1078,7 +1078,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">A Profile for Signed Group of Multiple-Origin Autonomous Systems for Use in the Resource Public Key Infrastructure (RPKI)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes <span class="bcp14">SHOULD</span> be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and consensually authorized.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) protected content type for use with the Resource Public Key Infrastructure (RPKI) to authenticate the collective announcement of IP prefixes by Multiple Origin Autonomous System (MOAS). The Signed MOAS Group mainly includes two parts: an IP prefix and a list of Autonomous Systems (ASes) authorized to announce the prefix. At least one of these ASes <span class="bcp14">SHOULD</span> be authorized to announce the prefix by the prefix owner through a Route Origin Authorization (ROA). The validation of a Signed MOAS Group confirms that the authorized ASes and other listed ASes have collectively agreed to announce the prefix, ensuring that the announcement is legitimate, accurate, and mutually authorized.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1099,7 +1099,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1161,10 +1161,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-signed-moasgroup-issuance" class="internal xref">Signed MoasGroup Issuance</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-issuance-of-signed-moasgrou" class="internal xref">Issuance of Signed MoasGroup</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-signed-moasgroup-validation" class="internal xref">Signed MoasGroup Validation</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-validation-of-signed-moasgr" class="internal xref">Validation of Signed MoasGroup</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
@@ -1208,8 +1208,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">This document defines a "Signed MOAS Group", a Cryptographic Message Syntax (CMS) <span>[<a href="#RFC5652" class="cite xref">RFC5652</a>]</span> <span>[<a href="#RFC626" class="cite xref">RFC626</a>]</span> protected content type to carry an IP prefix and a list of Autonomous Systems (ASes) authorized to announce this prefix. The Signed MOAS Group allows multiple ASes to collaboratively and securely announce an IP prefix, supporting scenarios such as business partnerships, traffic engineering, and DDoS protection services.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">A Signed MOAS Group object consists of two components: an IP prefix and a list of Autonomous Systems (ASes) intended to announce the prefix collaboratively, which allows other RPKI-validating routing entities to audit the collection of announcements from multiple originating AS. At least one AS in the AS list <span class="bcp14">SHOULD</span> be authorized to announce the prefix by the prefix owner through a corresponding ROA, which means the IP prefix in the ROA <span class="bcp14">SHOULD</span> match the IP prefix in the Signed MOAS Group and the AS number in the ROA <span class="bcp14">SHOULD</span> appear in the AS list. The object is collectively signed by the listed ASes using a multi-signature technique, and the aggregated global signature is attached to the Signed MOAS Group object, ensuring that the announcement could be legitimately proposed by all participating ASes and is verifiable by any RPKI-validating remote routing entities.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">To validate a Signed MoasGroup object, a relying party (RP) aggregates the public keys of all ASes in the AS list into a global public key, which is subsequently used to verify the multi-signature of the Signed MOAS Group object. There are three possible validation outcomes. First, if the Signed MOAS Group is verified and at least one corresponding ROA is found, it is considered valid. Second, if the Signed MOAS Group is verified but no corresponding ROA is found, it is deemed suspicious. Lastly, if the Signed MOAS Group cannot be verified, it is considered invalid.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-2">A Signed MOAS Group object mainly consists of two components: an IP prefix and a list of Autonomous Systems (ASes) intended to announce the prefix collaboratively, which allows other RPKI-validating routing entities to audit the collection of announcements from multiple originating AS. At least one AS in the AS list <span class="bcp14">SHOULD</span> be authorized to announce the prefix by the prefix owner through a ROA, which means the IP prefix in the ROA <span class="bcp14">SHOULD</span> match the IP prefix in the Signed MOAS Group and the AS number in the ROA <span class="bcp14">SHOULD</span> appear in the AS list. The object is collectively signed by the listed ASes using a multi-signature technique, and the aggregated global signature is attached to the Signed MOAS Group object, ensuring that the announcement could be legitimately proposed by all participating ASes and is verifiable by any RPKI-validating remote routing entities.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">When validating a Signed MoasGroup, a relying party (RP) aggregates the public keys of all ASes in the AS list into a single global public key. This global key is then used to verify the multi-signature of the Signed MoasGroup. There are three possible validation outcomes. First, if the Signed MoasGroup is verified and at least one corresponding ROA is found, it is considered valid. Second, if the Signed MoasGroup is verified but no corresponding ROA is found, it is deemed suspicious. Finally, if the Signed MoasGroup fails verification, it is considered invalid.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">The Signed MOAS Group provides a technical way for securely managing multi-origin AS announcements, offering a robust and flexible solution to handle modern routing requirements. Any prefixes announced by ASes that are not included in a ROA or a validated Signed MOAS Group <span class="bcp14">SHOULD</span> be regarded as invalid, though their handling is subject to local routing policies. The intent is to offer a secure and authenticated method for managing MOAS scenarios, enhancing the overall security and integrity of the routing system.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">Signed MOAS Group objects follow the Signed Object Template for the RPKI <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
@@ -1239,7 +1239,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-signed-moasgroup-econtent">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-signed-moasgroup-econtent" class="section-name selfRef">Signed MoasGroup eContent</a>
       </h2>
-<p id="section-4-1">The content of a MoasGroup is a single IP prefix and a list of ASes. A MoasGroup is formally defined as follows:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">A MoasGroup is formally defined as follows:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4-2">
 <pre>
 RpkiSignedMoasGroup-2024
@@ -1336,34 +1336,32 @@ END
 </div>
 </section>
 </div>
-<div id="signed-moasgroup-issuance">
+<div id="issuance-of-signed-moasgroup">
 <section id="section-5">
-      <h2 id="name-signed-moasgroup-issuance">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-signed-moasgroup-issuance" class="section-name selfRef">Signed MoasGroup Issuance</a>
+      <h2 id="name-issuance-of-signed-moasgrou">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-issuance-of-signed-moasgrou" class="section-name selfRef">Issuance of Signed MoasGroup</a>
       </h2>
-<p id="section-5-1">The process of issuing a Signed MOAS Group begins with the prefix owner authorizing a prefix to an AS (referred to as the authorized AS) via a ROA. The authorized AS then initiates the creation of the Signed MOAS Group object, selects a digest algorithm, and calculates the digest of the Signed MOAS Group object. The authorized AS shares this Signed MOAS Group object with other ASes listed in the object. Each listed AS signs the digest using its private key and returns the signature to the authorized AS. Upon receiving and verifying all individual signatures, the authorized AS aggregates them into a global signature, i.e. the attestation, and attaches it to the Signed MOAS Group object. After that, the prefix owner <span class="bcp14">MAY</span> verify the Signed MOAS Group. Finally, the prefix owner or the authorized AS uploads the Signed MOAS Group to the RPKI repositories for validation and distribution.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">It is highly <span class="bcp14">RECOMMENDED</span> that the AS initiating the Signed MOAS Group object be authorized by the prefix owner via a ROA. This AS, referred to as the authorized AS, then initiates the creation of the Signed MOAS Group object, selects a digest algorithm, and calculates the digest of the Signed MOAS Group object. The authorized AS shares this Signed MOAS Group object with other ASes listed in the object. Each listed AS (including the authorized AS) signs the digest using its private key and returns the signature to the authorized AS. Upon receiving and verifying all individual signatures, the authorized AS aggregates them into a global signature, i.e. the attestation, and attaches it to the Signed MOAS Group object. After that, the prefix owner <span class="bcp14">MAY</span> verify the Signed MOAS Group. Finally, the prefix owner or the authorized AS uploads the Signed MOAS Group to the RPKI repositories for validation and distribution.<a href="#section-5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="signed-moasgroup-validation">
+<div id="validation-of-signed-moasgroup">
 <section id="section-6">
-      <h2 id="name-signed-moasgroup-validation">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-signed-moasgroup-validation" class="section-name selfRef">Signed MoasGroup Validation</a>
+      <h2 id="name-validation-of-signed-moasgr">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-validation-of-signed-moasgr" class="section-name selfRef">Validation of Signed MoasGroup</a>
       </h2>
-<p id="section-6-1">To validate a MoasGroup, the relying party <span class="bcp14">MUST</span> perform all the validation checks specified in <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>. In addition, the RP <span class="bcp14">MUST</span> perform the following validation steps:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">To validate a Signed MoasGroup, the relying party <span class="bcp14">MUST</span> perform all the validation checks specified in <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>. In addition, the RP <span class="bcp14">MUST</span> perform the following validation steps:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-6-2">
 <li id="section-6-2.1">
           <p id="section-6-2.1.1">The contents of the CMS eContent field <span class="bcp14">MUST</span> conform to all of the constraints described in <a href="#sec_econtent" class="auto internal xref">Section 4</a>.<a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-6-2.2">
-          <p id="section-6-2.2.1">The RP <span class="bcp14">MUST</span> verify the signatures of the Signed MOAS Group. This involves aggregating the public keys of all ASes listed in the AS list into a global public key. The aggregated global public key is subsequently used to verify the global signature attached to the Signed MOAS Group object.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-6-2.2.1">The RP <span class="bcp14">MUST</span> verify the attestation of the Signed MOAS Group. This process involves two steps: first, aggregating the public keys of all ASes listed in the AS list to form a global public key; second, using this aggregated global public key to verify the attestation attached to the Signed MOAS Group object.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-6-2.3">
           <p id="section-6-2.3.1">The RP <span class="bcp14">MUST</span> check for the existence of a corresponding ROA for the IP prefix in the Signed MOAS Group. The IP prefix in the ROA <span class="bcp14">MUST</span> match the IP prefix in the Signed MOAS Group, and the AS number in the ROA <span class="bcp14">MUST</span> appear in the AS list.<a href="#section-6-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-6-2.4">
-          <p id="section-6-2.4.1">A Signed MOAS Group has three possible validation outcomes. (1) Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, it is considered valid. (2) Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the Signed MOAS Group is considered suspicious. (3) Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.<a href="#section-6-2.4.1" class="pilcrow">¶</a></p>
-</li>
       </ol>
+<p id="section-6-3">A Signed MOAS Group has three possible validation results. (1) Valid: If the Signed MOAS Group is verified and at least one corresponding ROA is found, it is considered valid. (2) Suspicious: If the Signed MOAS Group is verified but no corresponding ROA is found, the Signed MOAS Group is considered suspicious. (3) Invalid: If the Signed MOAS Group cannot be verified, it is considered invalid.<a href="#section-6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operational-considerations">
@@ -1371,9 +1369,9 @@ END
       <h2 id="name-operational-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-7-1">To aggregate the signatures of all ASes in the AS list, the Signed MOAS Group <span class="bcp14">MUST</span> use BLS Signatures with BLS12-381 elliptic curve <span>[<a href="#I-D.draft-ietf-cose-bls-key-representations-05" class="cite xref">I-D.draft-ietf-cose-bls-key-representations-05</a>]</span>. This ensures that the signatures can be efficiently combined into a single global signature.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">The ASes in the AS List that are authorized by the ROA <span class="bcp14">SHOULD</span> be placed at the beginning of the AS list, ahead of any non-authorized ASes. This ordering can improve the efficiency of the RP's validation process. It is highly <span class="bcp14">RECOMMENDED</span> that the RP only verifies whether the first AS and the prefix can be validated by the ROA.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">Multiple valid Signed MOAS Group objects can exist that contain the same IP prefix. However, it is highly <span class="bcp14">RECOMMENDED</span> that an AS only participate in one Signed MOAS Group for the same IP prefix. If the AS List of a Signed MOAS Group needs modification, it is highly <span class="bcp14">RECOMMENDED</span> to revoke the current Signed MOAS Group and sign a new one.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-1">To aggregate the signatures efficiently, the Signed MOAS Group <span class="bcp14">SHOULD</span> use BLS Signatures with BLS12-381 elliptic curve <span>[<a href="#I-D.draft-ietf-cose-bls-key-representations-05" class="cite xref">I-D.draft-ietf-cose-bls-key-representations-05</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">ROA-authorized ASes <span class="bcp14">SHOULD</span> be placed at the beginning of the AS list to improve RP validation efficiency. It is highly <span class="bcp14">RECOMMENDED</span> that the RP only verifies the first AS and the prefix against the ROA.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">Multiple valid Signed MOAS Group objects may exist for the same IP prefix. However, it is highly <span class="bcp14">RECOMMENDED</span> that an AS participate in only one Signed MOAS Group for a given IP prefix. If changes to the AS list are needed, it is highly <span class="bcp14">RECOMMENDED</span> to revoke the existing Signed MOAS Group and issue a new one.<a href="#section-7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
