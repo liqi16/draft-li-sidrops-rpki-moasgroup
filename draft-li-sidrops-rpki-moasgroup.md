@@ -168,7 +168,7 @@ The attestation is a CMS detached signature in the SignedData format as defined 
 
 It is highly RECOMMENDED that the AS initiating the Signed MOAS Group object be authorized by the prefix owner via a ROA. This AS, referred to as the authorized AS, then initiates the creation of the Signed MOAS Group object, selects a digest algorithm, and calculates the digest of the Signed MOAS Group object. The authorized AS shares this Signed MOAS Group object with other ASes listed in the object. Each listed AS (including the authorized AS) signs the digest using its private key and returns the signature to the authorized AS. Upon receiving and verifying all individual signatures, the authorized AS aggregates them into a global signature, i.e. the attestation, and attaches it to the Signed MOAS Group object. After that, the prefix owner MAY verify the Signed MOAS Group. Finally, the prefix owner or the authorized AS uploads the Signed MOAS Group to the RPKI repositories for validation and distribution.
 
-# Validation of Signed MoasGroup 
+# Validation of Signed MoasGroup
 
 To validate a Signed MoasGroup, the relying party MUST perform all the validation checks specified in {{RFC6488}}. In addition, the RP MUST perform the following validation steps:
 
